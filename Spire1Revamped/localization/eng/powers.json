@@ -1,0 +1,8 @@
+{
+  "SPIRE1REVAMPED-BRUTALITY_POWER.description": "Whenever you lose HP, draw 1 additional card at the start of your next turn.",
+  "SPIRE1REVAMPED-BRUTALITY_POWER.smartDescription": "Whenever you lose HP, draw [blue]{Amount}[/blue] additional {Amount:plural:card|cards} at the start of your next turn.",
+  "SPIRE1REVAMPED-BRUTALITY_POWER.title": "Brutality",
+  "SPIRE1REVAMPED-DISARM_POWER.description": "Whenever you lose HP on your turn, ALL enemies lose 1 [gold]Strength[/gold] this turn.",
+  "SPIRE1REVAMPED-DISARM_POWER.smartDescription": "Whenever you lose HP on your turn, ALL enemies lose [blue]{Amount}[/blue] [gold]Strength[/gold] this turn.",
+  "SPIRE1REVAMPED-DISARM_POWER.title": "Disarm"
+}
