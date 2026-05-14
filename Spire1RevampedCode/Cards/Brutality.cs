@@ -7,7 +7,6 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.ValueProps;
-using Spire1Revamped.Spire1RevampedCode.Cards;
 using Spire1Revamped.Spire1RevampedCode.Powers;
 
 namespace Spire1Revamped.Spire1RevampedCode.Cards;

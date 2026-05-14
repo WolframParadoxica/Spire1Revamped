@@ -1,30 +1,24 @@
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Combat;
-using MegaCrit.Sts2.Core.Combat.History.Entries;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.ValueProps;
-using Spire1Revamped.Spire1RevampedCode.Cards;
 
 namespace Spire1Revamped.Spire1RevampedCode.Cards;
 
 [Pool(typeof(DefectCardPool))]
+
 public class Firewall() : Spire1RevampedCard(1,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {
-    public const string _calculatedBlocksKey = "CalculatedBlocks";
-    
+    public const string _blockRepeatsKey = "BlockRepeats";
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        (DynamicVar) new BlockVar(6M, ValueProp.Move),
-        (DynamicVar) new CalculationBaseVar(1M),
-        (DynamicVar) new CalculationExtraVar(1M),
-        (DynamicVar) new CalculatedVar("CalculatedBlocks").WithMultiplier((Func<CardModel, Creature, Decimal>) ((card, _) => (Decimal) (CombatManager.Instance.History.Entries.OfType<CardPlayFinishedEntry>().Count<CardPlayFinishedEntry>((Func<CardPlayFinishedEntry, bool>) (e => e.CardPlay.Card.Owner == card.Owner && e.CardPlay.Card.Type == CardType.Power)))))
+        (DynamicVar) new BlockVar(7M, ValueProp.Move),
+        (DynamicVar) new ("BlockRepeats", 1)
     ];
 
     protected override async Task OnPlay(
@@ -32,16 +26,30 @@ public class Firewall() : Spire1RevampedCard(1,
         CardPlay cardPlay)
     {
         Firewall firewall = this;
-        await CreatureCmd.TriggerAnim(firewall.Owner.Creature, "Cast", firewall.Owner.Character.CastAnimDelay);
-        int blockGains = (int) ((CalculatedVar) DynamicVars["CalculatedBlocks"]).Calculate(firewall.Owner.Creature);
+        await CreatureCmd.TriggerAnim(this.Owner.Creature, "Cast", this.Owner.Character.CastAnimDelay);
+        int blockGains = (int) DynamicVars["BlockRepeats"].BaseValue;
         for (int i = 0; i < blockGains; ++i)
         {
-            Decimal num = await CreatureCmd.GainBlock(firewall.Owner.Creature, firewall.DynamicVars.Block, cardPlay);
+            Decimal num = await CreatureCmd.GainBlock(this.Owner.Creature, this.DynamicVars.Block, cardPlay);
+        }
+
+        if (cardPlay.PlayIndex == cardPlay.PlayCount - 1)
+        {
+            DynamicVars["BlockRepeats"].BaseValue = 1;
         }
     }
 
+    public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        if (cardPlay.Card.Owner != this.Owner || !CombatManager.Instance.IsInProgress || cardPlay.Card.Type != CardType.Power)
+            return Task.CompletedTask;
+        ++DynamicVars["BlockRepeats"].BaseValue
+        ;
+        return Task.CompletedTask;
+    }
+    
     protected override void OnUpgrade()
     {
-        this.DynamicVars.Block.UpgradeValueBy(1M);
+        this.DynamicVars.Block.UpgradeValueBy(2M);
     }
 }

@@ -1,7 +1,7 @@
 {
   "SPIRE1REVAMPED-BRUTALITY.description": "Whenever you lose HP, draw 1 card at the start of your next turn.\nLose {HpLoss:diff()} HP.",
   "SPIRE1REVAMPED-BRUTALITY.title": "Brutality",
-  "SPIRE1REVAMPED-CONCENTRATE.description": "Discard 2 cards.\nGain {Energy:energyIcons()} equal to their total cost.\nTransform the discarded cards into Shivs.",
+  "SPIRE1REVAMPED-CONCENTRATE.description": "Discard 2 cards and transform them into [gold]Shivs[/gold].\nGain {Energy:energyIcons()} equal to their costs.",
   "SPIRE1REVAMPED-CONCENTRATE.title": "Concentrate",
   "SPIRE1REVAMPED-DISARM.description": "Whenever you lose HP on your turn, ALL enemies lose 1 [gold]Strength[/gold] this turn.",
   "SPIRE1REVAMPED-DISARM.title": "Disarm",
@@ -9,6 +9,6 @@
   "SPIRE1REVAMPED-GLASS_KNIFE.title": "Glass Knife",
   "SPIRE1REVAMPED-RECURSION.description": "Trigger the passive ability of your rightmost Orb{IfUpgraded:show: twice|}.\n[gold]Evoke[/gold] your rightmost Orb{IfUpgraded:show: twice. |.\n}[gold]Channel[/gold] that same Orb{IfUpgraded:show: twice|}.",
   "SPIRE1REVAMPED-RECURSION.title": "Recursion",
-  "SPIRE1REVAMPED-FIREWALL.description": "Gain {Block:diff()} [gold]Block[/gold]. Repeat this effect for each Power played this combat.{InCombat:\n(Gains Block {CalculatedBlocks:diff()} {CalculatedBlocks:plural:time|times})|}",
+  "SPIRE1REVAMPED-FIREWALL.description": "Gain {Block:diff()} [gold]Block[/gold].\nWhenever you play a Power, repeat this card's effect the next time it's played.{InCombat:\n(Gains Block {BlockRepeats:diff()} {BlockRepeats:plural:time|times})|}",
   "SPIRE1REVAMPED-FIREWALL.title": "Firewall"
 }
