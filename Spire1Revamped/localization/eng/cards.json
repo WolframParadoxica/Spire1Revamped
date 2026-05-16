@@ -5,10 +5,14 @@
   "SPIRE1REVAMPED-CONCENTRATE.title": "Concentrate",
   "SPIRE1REVAMPED-DISARM.description": "Whenever you lose HP on your turn, ALL enemies lose 1 [gold]Strength[/gold] this turn.",
   "SPIRE1REVAMPED-DISARM.title": "Disarm",
-  "SPIRE1REVAMPED-GLASS_KNIFE.description": "Deal {Damage:diff()} damage twice.\nDecrease this card's damage by {Increase:inverseDiff()} this combat.",
+  "SPIRE1REVAMPED-GLASS_KNIFE.description": "Deal {Damage:diff()} damage twice.\nDecrease this card's damage by {Decrease:inverseDiff()} this combat.",
   "SPIRE1REVAMPED-GLASS_KNIFE.title": "Glass Knife",
   "SPIRE1REVAMPED-RECURSION.description": "Trigger the passive ability of your rightmost Orb{IfUpgraded:show: twice|}.\n[gold]Evoke[/gold] your rightmost Orb{IfUpgraded:show: twice. |.\n}[gold]Channel[/gold] that same Orb{IfUpgraded:show: twice|}.",
   "SPIRE1REVAMPED-RECURSION.title": "Recursion",
   "SPIRE1REVAMPED-FIREWALL.description": "Gain {Block:diff()} [gold]Block[/gold].\nWhenever you play a Power, repeat this card's effect the next time it's played.{InCombat:\n(Gains Block {BlockRepeats:diff()} {BlockRepeats:plural:time|times})|}",
-  "SPIRE1REVAMPED-FIREWALL.title": "Firewall"
+  "SPIRE1REVAMPED-FIREWALL.title": "Firewall",
+  "SPIRE1REVAMPED-FROM_THE_AETHER.description": "Whenever you create a card, draw 1 card.",
+  "SPIRE1REVAMPED-FROM_THE_AETHER.title": "From the Aether",
+  "SPIRE1REVAMPED-IMPOTENCE.description": "At the end of your turn, gain {ImpotencePower:diff()} [gold]Vigor[/gold] for each card in your [gold]Hand[/gold].",
+  "SPIRE1REVAMPED-IMPOTENCE.title": "IMPOTENCE!!!"
 }

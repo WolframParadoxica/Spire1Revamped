@@ -35,7 +35,7 @@ public class Concentrate() : Spire1RevampedCard(1,
         CardPlay play)
     {
         Concentrate source = this;
-        foreach (CardModel original in (await CardSelectCmd.FromHand(choiceContext, source.Owner, new CardSelectorPrefs(CardSelectorPrefs.DiscardSelectionPrompt, 2), (Func<CardModel, bool>) null, (AbstractModel) source)).ToList<CardModel>())
+        foreach (CardModel original in (await CardSelectCmd.FromHand(choiceContext, source.Owner, new CardSelectorPrefs(CardSelectorPrefs.DiscardSelectionPrompt,2, 2), (Func<CardModel, bool>) null, (AbstractModel) source)).ToList<CardModel>())
         {
             await CardCmd.Discard(choiceContext, original);
             int energyAtTimeOfPlay = source.Owner.PlayerCombatState.Energy;
