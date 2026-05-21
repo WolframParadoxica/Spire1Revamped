@@ -1,4 +1,7 @@
 {
+  "SPIRE1REVAMPED-BRUTAL_DRAW_POWER.description": "At the start of your next turn, draw [blue]1[/blue] additional card.",
+  "SPIRE1REVAMPED-BRUTAL_DRAW_POWER.smartDescription": "At the start of your next turn, draw [blue]{Amount}[/blue] additional {Amount:plural:card|cards}.",
+  "SPIRE1REVAMPED-BRUTAL_DRAW_POWER.title": "Draw Cards Next Turn",
   "SPIRE1REVAMPED-BRUTALITY_POWER.description": "Whenever you lose HP, draw [blue]1[/blue] additional card at the start of your next turn.",
   "SPIRE1REVAMPED-BRUTALITY_POWER.smartDescription": "Whenever you lose HP, draw [blue]{Amount}[/blue] additional {Amount:plural:card|cards} at the start of your next turn.",
   "SPIRE1REVAMPED-BRUTALITY_POWER.title": "Brutality",
@@ -8,7 +11,13 @@
   "SPIRE1REVAMPED-FROM_THE_AETHER_POWER.description": "Whenever you create a card, draw [blue]1[/blue] card.",
   "SPIRE1REVAMPED-FROM_THE_AETHER_POWER.smartDescription": "Whenever you create a card, draw [blue]{Amount}[/blue] {Amount:plural:card|cards}.",
   "SPIRE1REVAMPED-FROM_THE_AETHER_POWER.title": "From the Aether",
-  "SPIRE1REVAMPED-IMPOTENCE_POWER.description": "At the end of your turn, gain [blue]1[/blue] [gold]Vigor[/gold] for each card in your [gold]Hand[/gold].",
-  "SPIRE1REVAMPED-IMPOTENCE_POWER.smartDescription": "At the end of your turn, gain [blue]{Amount}[/blue] [gold]Vigor[/gold] for each card in your [gold]Hand[/gold].",
-  "SPIRE1REVAMPED-IMPOTENCE_POWER.title": "IMPOTENCE!!!"
+  "SPIRE1REVAMPED-INVIGORATE_POWER.description": "At the end of your turn, gain [blue]1[/blue] [gold]Vigor[/gold] for each card in your [gold]Hand[/gold].",
+  "SPIRE1REVAMPED-INVIGORATE_POWER.smartDescription": "At the end of your turn, gain [blue]{Amount}[/blue] [gold]Vigor[/gold] for each card in your [gold]Hand[/gold].",
+  "SPIRE1REVAMPED-INVIGORATE_POWER.title": "Invigorate",
+  "SPIRE1REVAMPED-OSSIFY_POWER.description": "[gold]Summon[/gold] from cards is increased by [gold]Dexterity[/gold].",
+  "SPIRE1REVAMPED-OSSIFY_POWER.smartDescription": "[gold]Summon[/gold] from cards is increased by [gold]Dexterity[/gold] {Amount:plural:|[blue]{}[/blue] times}.",
+  "SPIRE1REVAMPED-OSSIFY_POWER.title": "Ossify",
+  "SPIRE1REVAMPED-PULSE_OF_LIFE_POWER.description": "Whenever you play a card, [gold]Osty[/gold] heals [blue]1[/blue] HP.",
+  "SPIRE1REVAMPED-PULSE_OF_LIFE_POWER.smartDescription": "Whenever you play a card, [gold]Osty[/gold] heals [blue]{Amount}[/blue] HP.",
+  "SPIRE1REVAMPED-PULSE_OF_LIFE_POWER.title": "Pulse of Life"
 }

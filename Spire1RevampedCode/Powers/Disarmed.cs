@@ -5,7 +5,7 @@ using Spire1Revamped.Spire1RevampedCode.Cards;
 
 namespace Spire1Revamped.Spire1RevampedCode.Powers;
 
-public abstract class DisarmedPower : TemporaryStrengthPower
+public class DisarmedPower : TemporaryStrengthPower
 {
     public override AbstractModel OriginModel => (AbstractModel) ModelDb.Card<Disarm>();
 

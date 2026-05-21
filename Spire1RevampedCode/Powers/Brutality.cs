@@ -1,11 +1,9 @@
-﻿using BaseLib.Abstracts;
-using BaseLib.Extensions;
+﻿using BaseLib.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using Spire1Revamped.Spire1RevampedCode.Extensions;
 
@@ -32,6 +30,6 @@ public sealed class BrutalityPower : Spire1RevampedPower
     BrutalityPower brutalityPower = this;
     if (target != brutalityPower.Owner || result.UnblockedDamage <= 0)
       return;
-    DrawCardsNextTurnPower cardsNextTurnPower = await PowerCmd.Apply<DrawCardsNextTurnPower>(choiceContext, brutalityPower.Owner, this.Amount, brutalityPower.Owner,  (CardModel) null);
+    BrutalDrawPower brutalDrawPower = await PowerCmd.Apply<BrutalDrawPower>(choiceContext, brutalityPower.Owner, this.Amount, brutalityPower.Owner,  (CardModel) null);
   }
 }

@@ -6,12 +6,11 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
-using MegaCrit.Sts2.Core.ValueProps;
 using Spire1Revamped.Spire1RevampedCode.Extensions;
 
 namespace Spire1Revamped.Spire1RevampedCode.Powers;
 
-public sealed class ImpotencePower : Spire1RevampedPower
+public sealed class InvigoratePower : Spire1RevampedPower
 {
     //Loads from Spire1Revamped/images/powers/your_power.png
     public override string CustomPackedIconPath => $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".PowerImagePath();
@@ -23,16 +22,16 @@ public sealed class ImpotencePower : Spire1RevampedPower
 
   public override async Task BeforeTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
   {
-    ImpotencePower impotencePower = this;
-    if (side != impotencePower.Owner.Side)
+    InvigoratePower invigoratePower = this;
+    if (side != invigoratePower.Owner.Side)
       return;
-    IReadOnlyList<CardModel> cards = PileType.Hand.GetPile(impotencePower.Owner.Player).Cards;
+    IReadOnlyList<CardModel> cards = PileType.Hand.GetPile(invigoratePower.Owner.Player).Cards;
     if (cards.Count == 0)
       return;
     decimal amount = cards.Count * this.Amount;
-    impotencePower.Flash();
-    VigorPower vigorPower = await PowerCmd.Apply<VigorPower>(choiceContext, impotencePower.Owner, amount, impotencePower.Owner, (CardModel) null);
-    //VigorPower vigorPower = PowerCmd.Apply<VigorPower>(choiceContext, impotencePower.Owner.Player, amount, impotencePower.Owner.Player, (CardModel) cardSource);
+    invigoratePower.Flash();
+    VigorPower vigorPower = await PowerCmd.Apply<VigorPower>(choiceContext, invigoratePower.Owner, amount, invigoratePower.Owner, (CardModel) null);
+    //VigorPower vigorPower = PowerCmd.Apply<VigorPower>(choiceContext, invigoratePower.Owner.Player, amount, invigoratePower.Owner.Player, (CardModel) cardSource);
   }
   
 }
