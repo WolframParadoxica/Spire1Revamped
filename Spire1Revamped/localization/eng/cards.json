@@ -21,13 +21,15 @@
   "SPIRE1REVAMPED-INVIGORATE.title": "Invigorate",
   "SPIRE1REVAMPED-OSSIFY.description": "Gain {DexterityPower:diff()} [gold]Dexterity[/gold].\n[gold]Summon[/gold] from cards is increased by [gold]Dexterity[/gold].",
   "SPIRE1REVAMPED-OSSIFY.title": "Ossify",
+  "SPIRE1REVAMPED-PAIN.description": "While in hand, lose {HpLoss:diff()} HP whenever other cards are played.",
+  "SPIRE1REVAMPED-PAIN.title": "Pain",
+  "SPIRE1REVAMPED-PREIGNITE.description": "Play 1 of the top {Cards:diff()} cards of your Draw Pile and [gold]Exhaust[/gold] the rest.",
+  "SPIRE1REVAMPED-PREIGNITE.selectionScreenPrompt": "Choose a card to Play.",
+  "SPIRE1REVAMPED-PREIGNITE.title": "Preignite",
   "SPIRE1REVAMPED-PULSE_OF_LIFE.description": "Whenever you play a card, [gold]Osty[/gold] heals {PulseOfLifePower:diff()} HP.",
   "SPIRE1REVAMPED-PULSE_OF_LIFE.title": "Pulse of Life",
   "SPIRE1REVAMPED-REDUPLICATE.description": "Trigger the passive ability of your rightmost Orb{IfUpgraded:show: twice|}.\n[gold]Evoke[/gold] your rightmost Orb{IfUpgraded:show: twice. |.\n}[gold]Channel[/gold] that same Orb{IfUpgraded:show: twice|}.",
   "SPIRE1REVAMPED-REDUPLICATE.title": "Reduplicate",
   "SPIRE1REVAMPED-RECURSION.description": "[gold]Evoke[/gold] your rightmost Orb.\n[gold]Channel[/gold] that same Orb.",
-  "SPIRE1REVAMPED-RECURSION.title": "Recursion",
-  "SPIRE1REVAMPED-PREIGNITE.description": "Play 1 of the top {Cards:diff()} cards of your Draw Pile and [gold]Exhaust[/gold] the rest.",
-  "SPIRE1REVAMPED-PREIGNITE.selectionScreenPrompt": "Choose a card to Play.",
-  "SPIRE1REVAMPED-PREIGNITE.title": "Preignite"
+  "SPIRE1REVAMPED-RECURSION.title": "Recursion"
 }

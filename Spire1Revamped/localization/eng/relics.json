@@ -1,10 +1,16 @@
 {
   "SPIRE1REVAMPED-MARK_OF_PAIN.description": "Gain {Energy:energyIcons()} at the start of each turn. Upon pickup, add [red]Pain[/red] to your [gold]Deck[/gold].",
-  "SPIRE1REVAMPED-MARK_OF_PAIN.flavor": "[red]Shouldn't have touched that forge.[/red]",
+  "SPIRE1REVAMPED-MARK_OF_PAIN.flavor": "[red]Shouldn't have touched that anvil.[/red]",
   "SPIRE1REVAMPED-MARK_OF_PAIN.title": "Mark of Pain",
   "SPIRE1REVAMPED-HOVERING_KITE.description": "The first time you discard a card each turn, gain {Energy:energyIcons()}.",
   "SPIRE1REVAMPED-HOVERING_KITE.flavor": "[red]Floats using the power of friendship... and corpses.[/red]",
   "SPIRE1REVAMPED-HOVERING_KITE.title": "Hovering Kite",
+  "SPIRE1REVAMPED-PROTOSTAR.description": "Whenever you spend {singleStarIcon}, draw 1 card for each {singleStarIcon} spent.",
+  "SPIRE1REVAMPED-PROTOSTAR.flavor": "[red]Only just the beginning...[/red]",
+  "SPIRE1REVAMPED-PROTOSTAR.title": "Protostar",
+  "SPIRE1REVAMPED-UNHOLY_GRAIL.description": "Whenever you play a card, [gold]Summon[,gold] equal to its {Energy:energyIcons()} cost.",
+  "SPIRE1REVAMPED-UNHOLY_GRAIL.flavor": "[red]At long last... we found it?[/red]",
+  "SPIRE1REVAMPED-UNHOLY_GRAIL.title": "Unholy Grail",
   "SPIRE1REVAMPED-FROZEN_BATTERY.description": "Whenever you play a Power, [gold]Channel[/gold] 1 [gold]Frost[/gold].",
   "SPIRE1REVAMPED-FROZEN_BATTERY.flavor": "[red]DO NOT LICK!!![/red]",
   "SPIRE1REVAMPED-FROZEN_BATTERY.title": "Frozen Battery"
