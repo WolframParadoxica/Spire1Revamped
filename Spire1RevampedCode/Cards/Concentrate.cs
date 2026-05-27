@@ -39,10 +39,30 @@ public class Concentrate() : Spire1RevampedCard(1,
     {
         Concentrate source = this;
         var heldcards = new List<CardModel>(2);
-        foreach (CardModel original in (await CardSelectCmd.FromHand(choiceContext, source.Owner, new CardSelectorPrefs(CardSelectorPrefs.DiscardSelectionPrompt,2, 2), (Func<CardModel, bool>) null, (AbstractModel) source)).ToList<CardModel>())
-        {//dump cards to a list
-            heldcards.Add(original);
-        }//discard cards and gain energy by manually extracting the discard function and rearranging it
+        IReadOnlyList<CardModel> handcards = PileType.Hand.GetPile(source.Owner).Cards;
+        switch (handcards.Count)
+        {
+            //do nothing if there are no other cards
+            case 0:
+                return;
+            case <= 2:
+            {
+                foreach (CardModel original in handcards)
+                {//don't prompt if there are 1 or 2 card(s)
+                    heldcards.Add(original);
+                }
+                break;
+            }
+            default:
+            {
+                foreach (CardModel original in (await CardSelectCmd.FromHandForDiscard(choiceContext, source.Owner, new CardSelectorPrefs(CardSelectorPrefs.DiscardSelectionPrompt,2, 2), (Func<CardModel, bool>) null, (AbstractModel) source)).ToList<CardModel>())
+                {//dump selected cards to a list
+                    heldcards.Add(original);
+                }
+                break;
+            }
+        }
+//discard cards and gain energy by manually extracting the discard function and rearranging it
         List<CardModel> discardCards;
         ICombatState combatState;
         List<CardModel> slyCards;
