@@ -17,7 +17,7 @@ public class Preignite() : Spire1RevampedCard(0,
 {
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [(DynamicVar) new CardsVar(3)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [(DynamicVar) new CardsVar(2)];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
@@ -37,18 +37,17 @@ public class Preignite() : Spire1RevampedCard(0,
             }
             else
                 break;
-        }
-        
+        }//grab the 2(4) cards
+        foreach (CardModel original in cards)
+        {
+            CardPileAddResult cardPileAddResult = await CardPileCmd.Add(original, PileType.Draw);
+            await CardCmd.Exhaust(choiceContext, original);
+        }//exhaust them in sequence
+        //open up ui to play one of them
         CardModel card2 = (await CardSelectCmd.FromSimpleGrid(choiceContext, cards, card1.Owner, new CardSelectorPrefs(card1.SelectionScreenPrompt, 1))).FirstOrDefault<CardModel>();
         if (card2 == null)
             return;
         await CardCmd.AutoPlay(choiceContext, card2, null);
-        foreach (CardModel original in cards)
-            if (original != card2)
-            {
-                CardPileAddResult cardPileAddResult = await CardPileCmd.Add(original, PileType.Draw);
-                await CardCmd.Exhaust(choiceContext, original);
-            }
     }
 
     protected override void OnUpgrade() => this.DynamicVars.Cards.UpgradeValueBy(2M);

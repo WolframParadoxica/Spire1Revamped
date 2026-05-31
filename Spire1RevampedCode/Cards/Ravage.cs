@@ -19,8 +19,18 @@ public class Ravage() : Spire1RevampedCard(0,
 {
     public const string _powerVarName = "Ravage";
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VulnerablePower>(),HoverTipFactory.Static(StaticHoverTip.Block),HoverTipFactory.FromKeyword(CardKeyword.Sly)];
-
+    protected override IEnumerable<IHoverTip> ExtraHoverTips
+    {
+        get
+        {
+            List<IHoverTip> hoverTips = [];
+            if (!this.IsUpgraded)
+                hoverTips.Add(HoverTipFactory.FromPower<VulnerablePower>());
+            hoverTips.Add(HoverTipFactory.Static(StaticHoverTip.Block));
+            hoverTips.Add(HoverTipFactory.FromKeyword(CardKeyword.Sly));
+            return hoverTips;
+        }
+    }
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<VulnerablePower>(1M), new DynamicVar(nameof (Ravage), 1M)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

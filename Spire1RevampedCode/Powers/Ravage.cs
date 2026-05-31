@@ -31,16 +31,17 @@ public sealed class RavagePower : Spire1RevampedPower
         CardCmd.ApplySingleTurnSly(card);
     return Task.CompletedTask;
   }
-  
-  public override async Task AfterPlayerTurnStartEarly(PlayerChoiceContext choiceContext, Player player)
+
+  public override Task AfterEnergyReset(Player player)
   {
     RavagePower ravagePower = this;
     if (player != ravagePower.Owner.Player)
-      return;
-    await PowerCmd.Decrement((PowerModel) ravagePower);
-    if (this.Amount > 0)
-      foreach (CardModel allCard in ravagePower.Owner.Player.PlayerCombatState.AllCards)
-        if (allCard.Type == CardType.Attack)
-          CardCmd.ApplySingleTurnSly(allCard);
+      return base.AfterEnergyReset(player);
+    PowerCmd.Decrement((PowerModel) ravagePower);
+    if (this.Amount <= 0) return base.AfterEnergyReset(player);
+    foreach (CardModel allCard in ravagePower.Owner.Player.PlayerCombatState.AllCards)
+      if (allCard.Type == CardType.Attack)
+        CardCmd.ApplySingleTurnSly(allCard);
+    return base.AfterEnergyReset(player);
   }
 }
