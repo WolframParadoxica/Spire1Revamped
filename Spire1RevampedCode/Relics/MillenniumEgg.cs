@@ -39,7 +39,7 @@ public class MillenniumEgg : Spire1RevampedRelic
         },
         {
           ModelDb.Card<Bodyguard>().Id,
-          (CardModel) ModelDb.Card<Protector>()
+          (CardModel) ModelDb.Card<Keeper>()
         },
         {
           ModelDb.Card<Venerate>().Id,
@@ -47,7 +47,7 @@ public class MillenniumEgg : Spire1RevampedRelic
         },
         {
           ModelDb.Card<Zap>().Id,
-          (CardModel) ModelDb.Card<Quadcast>()
+          (CardModel) ModelDb.Card<Galvanize>()
         }
       };
     }

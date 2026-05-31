@@ -12,14 +12,14 @@ public sealed class FromTheAetherPower : Spire1RevampedPower
 
   public override PowerStackType StackType => PowerStackType.Counter;
 
-  protected override async Task AfterCardGeneratedForCombat(PlayerChoiceContext ctx, CardModel card, Player? creator)
+  public override async Task AfterCardGeneratedForCombat(CardModel card, Player? creator)
   {
     FromTheAetherPower fromTheAetherPower = this;
     if (creator == null || creator.Creature != fromTheAetherPower.Owner)
       return;
     fromTheAetherPower.Flash();
     IEnumerable<CardModel> cardModels = await CardPileCmd.Draw(
-      (PlayerChoiceContext) ctx,
+      (PlayerChoiceContext) new BlockingPlayerChoiceContext(),
       (Decimal) fromTheAetherPower.Amount,
       fromTheAetherPower.Owner.Player);
   }

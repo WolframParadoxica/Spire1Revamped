@@ -1,9 +1,6 @@
 {
-  "SPIRE1REVAMPED-BRUTAL_DRAW_POWER.description": "At the start of your next turn, draw [blue]1[/blue] additional card.",
-  "SPIRE1REVAMPED-BRUTAL_DRAW_POWER.smartDescription": "At the start of your next turn, draw [blue]{Amount}[/blue] additional {Amount:plural:card|cards}.",
-  "SPIRE1REVAMPED-BRUTAL_DRAW_POWER.title": "Draw Cards Next Turn",
-  "SPIRE1REVAMPED-BRUTALITY_POWER.description": "Whenever you lose HP, draw [blue]1[/blue] additional card at the start of your next turn.",
-  "SPIRE1REVAMPED-BRUTALITY_POWER.smartDescription": "Whenever you lose HP, draw [blue]{Amount}[/blue] additional {Amount:plural:card|cards} at the start of your next turn.",
+  "SPIRE1REVAMPED-BRUTALITY_POWER.description": "Every 2 times you lose HP, draw [blue]1[/blue] card.",
+  "SPIRE1REVAMPED-BRUTALITY_POWER.smartDescription": "Every 2 times you lose HP, draw [blue]{Amount}[/blue] {Amount:plural:card|cards}.",
   "SPIRE1REVAMPED-BRUTALITY_POWER.title": "Brutality",
   "SPIRE1REVAMPED-DISARM_POWER.description": "Whenever you lose HP on your turn, ALL enemies lose [blue]1[/blue] [gold]Strength[/gold] this turn.",
   "SPIRE1REVAMPED-DISARM_POWER.smartDescription": "Whenever you lose HP on your turn, ALL enemies lose [blue]{Amount}[/blue] [gold]Strength[/gold] this turn.",
@@ -11,6 +8,9 @@
   "SPIRE1REVAMPED-FROM_THE_AETHER_POWER.description": "Whenever you create a card, draw [blue]1[/blue] card.",
   "SPIRE1REVAMPED-FROM_THE_AETHER_POWER.smartDescription": "Whenever you create a card, draw [blue]{Amount}[/blue] {Amount:plural:card|cards}.",
   "SPIRE1REVAMPED-FROM_THE_AETHER_POWER.title": "From the Aether",
+  "SPIRE1REVAMPED-GALVANIZE_POWER.description": "[gold]Lightning[/gold] hits enemies twice this turn.",
+  "SPIRE1REVAMPED-GALVANIZE_POWER.smartDescription": "[gold]Lightning[/gold] hits enemies twice {Amount:plural:this turn|for [blue]{}[/blue] turns}.",
+  "SPIRE1REVAMPED-GALVANIZE_POWER.title": "Galvanize",
   "SPIRE1REVAMPED-INVIGORATE_POWER.description": "At the end of your turn, gain [blue]1[/blue] [gold]Vigor[/gold] for each card in your [gold]Hand[/gold].",
   "SPIRE1REVAMPED-INVIGORATE_POWER.smartDescription": "At the end of your turn, gain [blue]{Amount}[/blue] [gold]Vigor[/gold] for each card in your [gold]Hand[/gold].",
   "SPIRE1REVAMPED-INVIGORATE_POWER.title": "Invigorate",
@@ -19,5 +19,8 @@
   "SPIRE1REVAMPED-OSSIFY_POWER.title": "Ossify",
   "SPIRE1REVAMPED-PULSE_OF_LIFE_POWER.description": "Whenever you play a card, [gold]Osty[/gold] heals [blue]1[/blue] HP.",
   "SPIRE1REVAMPED-PULSE_OF_LIFE_POWER.smartDescription": "Whenever you play a card, [gold]Osty[/gold] heals [blue]{Amount}[/blue] HP.",
-  "SPIRE1REVAMPED-PULSE_OF_LIFE_POWER.title": "Pulse of Life"
+  "SPIRE1REVAMPED-PULSE_OF_LIFE_POWER.title": "Pulse of Life",
+  "SPIRE1REVAMPED-RAVAGE_POWER.description": "Your Attacks are [gold]Sly[/gold] this turn.",
+  "SPIRE1REVAMPED-RAVAGE_POWER.smartDescription": "Your Attacks are [gold]Sly[/gold] {Amount:plural:this turn|for [blue]{}[/blue] turns}.",
+  "SPIRE1REVAMPED-RAVAGE_POWER.title": "Ravage"
 }
