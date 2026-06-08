@@ -10,7 +10,7 @@
   "SPIRE1REVAMPED-HOVERING_KITE.selectionScreenPrompt": "Choose a card to discard and gain energy.",
   "SPIRE1REVAMPED-HOVERING_KITE.flavor": "[red]Floats using the power of friendship... and corpses.[/red]",
   "SPIRE1REVAMPED-HOVERING_KITE.title": "Hovering Kite",
-  "SPIRE1REVAMPED-MONOCLE.description": "Whenever you spend {singleStarIcon}, draw 1 card for each {singleStarIcon} spent.",
+  "SPIRE1REVAMPED-MONOCLE.description": "Cards have 1 {Energy:energyIcons()} cost converted to 1 {singleStarIcon} cost.",
   "SPIRE1REVAMPED-MONOCLE.flavor": "[red]Finally, glasses that fit![/red]",
   "SPIRE1REVAMPED-MONOCLE.title": "Monocle",
   "SPIRE1REVAMPED-BLEEDING_ANVIL.description": "Whenever you spend {Energy:energyIcons()}, [gold]Summon[/gold] that much.",

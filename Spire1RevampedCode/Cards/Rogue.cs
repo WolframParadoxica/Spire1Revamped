@@ -20,7 +20,6 @@ public class Rogue() : Spire1RevampedCard(1,
   CardType.Skill, CardRarity.Ancient,
   TargetType.Self)
 {
-
   protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VulnerablePower>(),HoverTipFactory.FromPower<WeakPower>()];
 
   protected override IEnumerable<DynamicVar> CanonicalVars => [
