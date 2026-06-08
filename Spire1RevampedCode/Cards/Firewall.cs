@@ -33,7 +33,7 @@ public class Firewall() : Spire1RevampedCard(1,
             Decimal num = await CreatureCmd.GainBlock(this.Owner.Creature, this.DynamicVars.Block, cardPlay);
         }
 
-        if (cardPlay.PlayIndex == cardPlay.PlayCount - 1)
+        if (cardPlay.IsLastInSeries)
         {
             DynamicVars["BlockRepeats"].BaseValue = 1;
         }

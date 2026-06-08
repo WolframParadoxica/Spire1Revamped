@@ -9,24 +9,15 @@ using Spire1Revamped.Spire1RevampedCode.Relics;
 
 namespace Spire1Revamped.Spire1RevampedCode.Patches;
 
-[HarmonyPatch(typeof(AncientEventModel), "GenerateInitialOptionsWrapper")]
-public class ModifyOrobasOptionsPatch
+[HarmonyPatch(typeof(Orobas), "AllPossibleOptions", MethodType.Getter)]
+public class AddAllOrobasOptionsPatch
 {
-    public static void Postfix(AncientEventModel __instance, ref IReadOnlyList<EventOption> __result)
+    public static void Postfix(Orobas __instance, ref IEnumerable<EventOption> __result)
     {
         if (__instance is not Orobas orobas)
             return;
-
-        if (orobas.Owner.RunState.Modifiers.Count > 0)
-            return;
-
         List<EventOption> options = __result.ToList();
-        MillenniumEgg millenniumEgg = (MillenniumEgg) ModelDb.Relic<MillenniumEgg>().ToMutable();
-        millenniumEgg.UpdateHoverTips();
-        
-        if (__instance.Owner != null && millenniumEgg.SetupForPlayer(__instance.Owner) && __instance.Rng.NextFloat() < 0.3333333134651184)
-            options[2] = RelicOption(millenniumEgg, "MillenniumEgg.eventDescription", orobas: orobas);
-        
+        options.Add(RelicOption<MillenniumEgg>(customDonePage: "OROBAS.pages.DONE.POSITIVE.description", orobas: orobas));
         __result = options;
     }
     
@@ -41,6 +32,7 @@ public class ModifyOrobasOptionsPatch
         relic.Owner = orobas.Owner;
 
         string textKey = $"{StringHelper.Slugify(orobas.GetType().Name)}.pages.{pageName}.options.{relic.Id.Entry}";
+        //string textKey = orobas.OptionKey(pageName, relic.Id.Entry);
         return EventOption.FromRelic(relic, orobas, OnChosen, textKey);
 
         async Task OnChosen()

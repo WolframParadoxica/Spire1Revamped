@@ -1,5 +1,4 @@
-﻿using BaseLib.Extensions;
-using MegaCrit.Sts2.Core.Entities.Creatures;
+﻿using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -23,13 +22,13 @@ public sealed class OssifyPower : Spire1RevampedPower
     return amount1 + this.Owner.GetPowerAmount<DexterityPower>()*this.Amount;
   }
   
-  public override decimal ModifyPowerAmountGiven(
+  public override Decimal ModifyPowerAmountGivenAdditive(
     PowerModel power,
     Creature giver,
-    decimal amount,
+    Decimal amount,
     Creature? target,
     CardModel? cardSource)
   {
-    return power is not SummonNextTurnPower ? amount : amount + this.Owner.GetPowerAmount<DexterityPower>()*this.Amount;
+    return power is not SummonNextTurnPower ? 0M : this.Owner.GetPowerAmount<DexterityPower>()*this.Amount;
   }
 }

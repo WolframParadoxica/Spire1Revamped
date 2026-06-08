@@ -20,22 +20,27 @@ public class ModifyDarvOptionsPatch
             
         if (darv.Owner.RunState.Modifiers.Count > 0)
             return;
-
         List<EventOption> options = __result.ToList();
-        if (options[2].TextKey != "DARV.pages.INITIAL.options.DUSTY_TOME")
+        switch (options[2].TextKey)
         {
-            if (__instance.Owner.Character is Ironclad)
-                options[2] = RelicOption<MarkOfPain>(customDonePage: "DARV.pages.DONE.POSITIVE.description", darv: darv);
-            if (__instance.Owner.Character is Silent)
-                options[2] = RelicOption<HoveringKite>(customDonePage: "DARV.pages.DONE.POSITIVE.description", darv: darv);
-            if (__instance.Owner.Character is Regent)
-                options[2] = RelicOption<Monocle>(customDonePage: "DARV.pages.DONE.POSITIVE.description", darv: darv);
-            if (__instance.Owner.Character is Necrobinder)
-                options[2] = RelicOption<BleedingAnvil>(customDonePage: "DARV.pages.DONE.POSITIVE.description", darv: darv);
-            if (__instance.Owner.Character is Defect)
-                options[2] = RelicOption<FrozenBattery>(customDonePage: "DARV.pages.DONE.POSITIVE.description", darv: darv);
+            case "DARV.pages.INITIAL.options.DUSTY_TOME":
+                break;
+            default:
+            {
+                if (__instance.Owner.Character is Ironclad)
+                    options[2] = RelicOption<MarkOfPain>(customDonePage: "DARV.pages.DONE.POSITIVE.description", darv: darv);
+                if (__instance.Owner.Character is Silent)
+                    options[2] = RelicOption<HoveringKite>(customDonePage: "DARV.pages.DONE.POSITIVE.description", darv: darv);
+                if (__instance.Owner.Character is Regent)
+                    options[2] = RelicOption<Monocle>(customDonePage: "DARV.pages.DONE.POSITIVE.description", darv: darv);
+                if (__instance.Owner.Character is Necrobinder)
+                    options[2] = RelicOption<BleedingAnvil>(customDonePage: "DARV.pages.DONE.POSITIVE.description", darv: darv);
+                if (__instance.Owner.Character is Defect)
+                    options[2] = RelicOption<FrozenBattery>(customDonePage: "DARV.pages.DONE.POSITIVE.description", darv: darv);
+                break;
+            }
         }
-        
+
         __result = options;
     }
     
