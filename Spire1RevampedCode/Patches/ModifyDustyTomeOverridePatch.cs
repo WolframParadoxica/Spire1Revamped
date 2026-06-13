@@ -60,7 +60,7 @@ internal class DustyTomePatch
                     __instance.AncientCard = ModelDb.Card<TheSealedThrone>().Id;
                     return false;
                 case Necrobinder:
-                    __instance.AncientCard = ModelDb.Card<WraithForm>().Id;
+                    __instance.AncientCard = ModelDb.Card<ForbiddenGrimoire>().Id;
                     return false;
                 case Defect:
                     __instance.AncientCard = ModelDb.Card<BiasedCognition>().Id;

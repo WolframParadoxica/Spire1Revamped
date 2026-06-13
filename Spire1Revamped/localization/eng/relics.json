@@ -16,7 +16,7 @@
   "SPIRE1REVAMPED-BLEEDING_ANVIL.description": "Whenever you spend {Energy:energyIcons()}, [gold]Summon[/gold] that much.",
   "SPIRE1REVAMPED-BLEEDING_ANVIL.flavor": "[red]Congealed Blood or Annealed Blood?[/red]",
   "SPIRE1REVAMPED-BLEEDING_ANVIL.title": "Bleeding Anvil",
-  "SPIRE1REVAMPED-FROZEN_BATTERY.description": "Whenever you play a Power, [gold]Channel[/gold] 1 [gold]Frost[/gold].",
+  "SPIRE1REVAMPED-FROZEN_BATTERY.description": "Whenever you play a Power, trigger the passive ability of your rightmost Orb.",
   "SPIRE1REVAMPED-FROZEN_BATTERY.flavor": "[red]DO NOT LICK!!![/red]",
   "SPIRE1REVAMPED-FROZEN_BATTERY.title": "Frozen Battery"
 }

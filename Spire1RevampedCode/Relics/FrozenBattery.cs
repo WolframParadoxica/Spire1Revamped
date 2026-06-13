@@ -1,10 +1,10 @@
 ﻿using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
-using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Orbs;
 using MegaCrit.Sts2.Core.Models.RelicPools;
 
@@ -15,19 +15,17 @@ public class FrozenBattery : Spire1RevampedRelic
 {
     public override RelicRarity Rarity => RelicRarity.Ancient;
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.Static(StaticHoverTip.Channeling),
-        HoverTipFactory.FromOrb<FrostOrb>()
-    ];
-    
-    protected override IEnumerable<DynamicVar> CanonicalVars => [(DynamicVar) new CardsVar(1)];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [];
+//        HoverTipFactory.Static(StaticHoverTip.Channeling),
+//        HoverTipFactory.FromOrb<FrostOrb>()
+//    ];
     
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         FrozenBattery frozenBattery = this;
-        if (cardPlay.Card.Owner != frozenBattery.Owner || cardPlay.Card.Type != CardType.Power)
+        if (cardPlay.Card.Owner != this.Owner || cardPlay.Card.Type != CardType.Power || this.Owner.PlayerCombatState.OrbQueue.Orbs.Count <= 0)
             return;
-        frozenBattery.Flash();
-        await OrbCmd.Channel<FrostOrb>(choiceContext, frozenBattery.Owner);
+        this.Flash();
+        await OrbCmd.Passive(choiceContext, this.Owner.PlayerCombatState!.OrbQueue.Orbs.FirstOrDefault(), (Creature) null);
     }
-}
+}//"Whenever you play a Power, [gold]Channel[/gold] 1 [gold]Frost[/gold]."
