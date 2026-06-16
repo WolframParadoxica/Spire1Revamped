@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2rg0do0x3pis"
-path="res://.godot/imported/ravage.png-12016f3ac02e8c2d85a21974b5a94eb4.ctex"
+uid="uid://cbwatgre70tyr"
+path="res://.godot/imported/from_the_aether_power.png-9f236714bac80d6c4e145676712830ef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Spire1Revamped/images/powers/ravage.png"
-dest_files=["res://.godot/imported/ravage.png-12016f3ac02e8c2d85a21974b5a94eb4.ctex"]
+source_file="res://Spire1Revamped/images/powers/from_the_aether_power.png"
+dest_files=["res://.godot/imported/from_the_aether_power.png-9f236714bac80d6c4e145676712830ef.ctex"]
 
 [params]
 

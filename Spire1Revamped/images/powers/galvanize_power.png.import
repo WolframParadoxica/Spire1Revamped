@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://q550cqbivg8n"
-path="res://.godot/imported/pulse_of_life.png-e633f1a86aa552bb44561ba52d11b4bc.ctex"
+uid="uid://rue321ne1hj4"
+path="res://.godot/imported/galvanize_power.png-4d5915cb082e6414a0f9364b9b0c672f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Spire1Revamped/images/powers/pulse_of_life.png"
-dest_files=["res://.godot/imported/pulse_of_life.png-e633f1a86aa552bb44561ba52d11b4bc.ctex"]
+source_file="res://Spire1Revamped/images/powers/galvanize_power.png"
+dest_files=["res://.godot/imported/galvanize_power.png-4d5915cb082e6414a0f9364b9b0c672f.ctex"]
 
 [params]
 

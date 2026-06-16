@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dksh0jriiicrt"
-path="res://.godot/imported/disarm.png-193a0d570d3af26e5b8fca73305988d8.ctex"
+uid="uid://cx3u00jkmois5"
+path="res://.godot/imported/brutality_power.png-e04ad759f9c34883b52b6382b7e85827.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Spire1Revamped/images/powers/disarm.png"
-dest_files=["res://.godot/imported/disarm.png-193a0d570d3af26e5b8fca73305988d8.ctex"]
+source_file="res://Spire1Revamped/images/powers/big/brutality_power.png"
+dest_files=["res://.godot/imported/brutality_power.png-e04ad759f9c34883b52b6382b7e85827.ctex"]
 
 [params]
 

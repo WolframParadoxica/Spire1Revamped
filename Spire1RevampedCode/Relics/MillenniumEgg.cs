@@ -31,23 +31,23 @@ public class MillenniumEgg : Spire1RevampedRelic
       {
         {
           ModelDb.Card<Bash>().Id,
-          (CardModel) ModelDb.Card<Cripple>()
+          ModelDb.Card<Cripple>()
         },
         {
           ModelDb.Card<Survivor>().Id,
-          (CardModel) ModelDb.Card<Rogue>()
+          ModelDb.Card<Rogue>()
         },
         {
           ModelDb.Card<Bodyguard>().Id,
-          (CardModel) ModelDb.Card<Keeper>()
+          ModelDb.Card<Keeper>()
         },
         {
           ModelDb.Card<Venerate>().Id,
-          (CardModel) ModelDb.Card<Ascend>()
+          ModelDb.Card<Ascend>()
         },
         {
           ModelDb.Card<Zap>().Id,
-          (CardModel) ModelDb.Card<Galvanize>()
+          ModelDb.Card<Galvanize>()
         }
       };
     }
@@ -116,7 +116,7 @@ public class MillenniumEgg : Spire1RevampedRelic
   }
 
   public void UpdateHoverTips()
-  {
+  {//apparently this is now redundant, need to check, leaving in for now
     this._extraHoverTips.Clear();
     if (this.StarterCard != null)
     {
@@ -156,7 +156,26 @@ public class MillenniumEgg : Spire1RevampedRelic
 
   protected override IEnumerable<IHoverTip> ExtraHoverTips
   {
-    get => (IEnumerable<IHoverTip>) this._extraHoverTips;
+    get
+    {
+      var _extraHoverTips2 = new List<IHoverTip>();
+
+      if (StarterCard != null)
+      {
+        CardModel cardModel = CardModel.FromSerializable(StarterCard);
+        _extraHoverTips2.AddRange(cardModel.HoverTips);
+        _extraHoverTips2.Add(HoverTipFactory.FromCard(cardModel));
+        ((StringVar)base.DynamicVars["StarterCard"]).StringValue = cardModel.Title;
+      }
+      if (AncientCard != null)
+      {
+        CardModel cardModel2 = CardModel.FromSerializable(AncientCard);
+        _extraHoverTips2.AddRange(cardModel2.HoverTips);
+        _extraHoverTips2.Add(HoverTipFactory.FromCard(cardModel2));
+        ((StringVar)base.DynamicVars["AncientCard"]).StringValue = cardModel2.Title;
+      }
+      return _extraHoverTips2;
+    }
   }
 
   public override async Task AfterObtained()

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cofafu2tpq1od"
-path="res://.godot/imported/power.png-970500ecee4a74d7fcfb4678e02650a4.ctex"
+uid="uid://cfxq5yplxrwwh"
+path="res://.godot/imported/galvanize.png-86fc9285a6a6aa58abfa0c6edc70d157.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Spire1Revamped/images/powers/big/power.png"
-dest_files=["res://.godot/imported/power.png-970500ecee4a74d7fcfb4678e02650a4.ctex"]
+source_file="res://Spire1Revamped/images/card_portraits/big/galvanize.png"
+dest_files=["res://.godot/imported/galvanize.png-86fc9285a6a6aa58abfa0c6edc70d157.ctex"]
 
 [params]
 

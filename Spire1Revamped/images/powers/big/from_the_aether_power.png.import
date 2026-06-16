@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dj5fr2ywx2n1o"
-path="res://.godot/imported/from_the_aether.png-fc1705cba6b820bb743c3c41cc1d2f86.ctex"
+uid="uid://j2iihp85nal5"
+path="res://.godot/imported/from_the_aether_power.png-448c3ae953cdc8cefd87a1514af408c3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Spire1Revamped/images/powers/big/from_the_aether.png"
-dest_files=["res://.godot/imported/from_the_aether.png-fc1705cba6b820bb743c3c41cc1d2f86.ctex"]
+source_file="res://Spire1Revamped/images/powers/big/from_the_aether_power.png"
+dest_files=["res://.godot/imported/from_the_aether_power.png-448c3ae953cdc8cefd87a1514af408c3.ctex"]
 
 [params]
 

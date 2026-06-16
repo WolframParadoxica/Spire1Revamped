@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dla6w8hg0obc7"
-path="res://.godot/imported/invigorate.png-8b4b58f947b379dd8d8efa44d12bdf27.ctex"
+uid="uid://ba8duh840dmro"
+path="res://.godot/imported/pulse_of_life_power.png-772e8495b78261f21ed3febd004bd6cd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Spire1Revamped/images/powers/big/invigorate.png"
-dest_files=["res://.godot/imported/invigorate.png-8b4b58f947b379dd8d8efa44d12bdf27.ctex"]
+source_file="res://Spire1Revamped/images/powers/pulse_of_life_power.png"
+dest_files=["res://.godot/imported/pulse_of_life_power.png-772e8495b78261f21ed3febd004bd6cd.ctex"]
 
 [params]
 

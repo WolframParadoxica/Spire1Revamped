@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bf2pnj67gbplw"
-path="res://.godot/imported/disarmed.png-0a8cbbbf548643fb9a1c4bc4ab7782a5.ctex"
+uid="uid://gwrej7fy2bcv"
+path="res://.godot/imported/galvanize_power.png-9eeabda50423b2c4ac6469cec521b630.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Spire1Revamped/images/powers/big/disarmed.png"
-dest_files=["res://.godot/imported/disarmed.png-0a8cbbbf548643fb9a1c4bc4ab7782a5.ctex"]
+source_file="res://Spire1Revamped/images/powers/big/galvanize_power.png"
+dest_files=["res://.godot/imported/galvanize_power.png-9eeabda50423b2c4ac6469cec521b630.ctex"]
 
 [params]
 

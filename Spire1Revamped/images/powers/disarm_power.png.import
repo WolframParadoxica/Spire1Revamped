@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bw1usayuecnmn"
-path="res://.godot/imported/pulse_of_life.png-c982caeab11d42b21e25d5603d53b7c0.ctex"
+uid="uid://2shnw8pjf4ep"
+path="res://.godot/imported/disarm_power.png-b5f79d3e018828aa661501b7e653d77b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Spire1Revamped/images/powers/big/pulse_of_life.png"
-dest_files=["res://.godot/imported/pulse_of_life.png-c982caeab11d42b21e25d5603d53b7c0.ctex"]
+source_file="res://Spire1Revamped/images/powers/disarm_power.png"
+dest_files=["res://.godot/imported/disarm_power.png-b5f79d3e018828aa661501b7e653d77b.ctex"]
 
 [params]
 

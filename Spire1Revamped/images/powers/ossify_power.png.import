@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0a7cetfasddd"
-path="res://.godot/imported/brutality.png-f5b9c3b26f76c914f38b0bbd1a5ad393.ctex"
+uid="uid://b0ry50d4otq1b"
+path="res://.godot/imported/ossify_power.png-1778c939e9958c67ea8fc15e9eb54312.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Spire1Revamped/images/powers/big/brutality.png"
-dest_files=["res://.godot/imported/brutality.png-f5b9c3b26f76c914f38b0bbd1a5ad393.ctex"]
+source_file="res://Spire1Revamped/images/powers/ossify_power.png"
+dest_files=["res://.godot/imported/ossify_power.png-1778c939e9958c67ea8fc15e9eb54312.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxk5y22qginu6"
-path="res://.godot/imported/brutality.png-33b6ecc4c734862ae6c766c2744d85db.ctex"
+uid="uid://cfiqm81l8cw5g"
+path="res://.godot/imported/ravage_power.png-40c5dff75728b1dee92d84830bc9a36f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Spire1Revamped/images/powers/brutality.png"
-dest_files=["res://.godot/imported/brutality.png-33b6ecc4c734862ae6c766c2744d85db.ctex"]
+source_file="res://Spire1Revamped/images/powers/big/ravage_power.png"
+dest_files=["res://.godot/imported/ravage_power.png-40c5dff75728b1dee92d84830bc9a36f.ctex"]
 
 [params]
 

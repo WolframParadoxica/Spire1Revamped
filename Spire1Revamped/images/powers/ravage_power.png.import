@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqobivv34brrv"
-path="res://.godot/imported/ossify.png-a14e8a324245c9dbee3166b1d993af21.ctex"
+uid="uid://cklfsbidcyiae"
+path="res://.godot/imported/ravage_power.png-cf794a544e0de257d6992629a02761fc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Spire1Revamped/images/powers/ossify.png"
-dest_files=["res://.godot/imported/ossify.png-a14e8a324245c9dbee3166b1d993af21.ctex"]
+source_file="res://Spire1Revamped/images/powers/ravage_power.png"
+dest_files=["res://.godot/imported/ravage_power.png-cf794a544e0de257d6992629a02761fc.ctex"]
 
 [params]
 

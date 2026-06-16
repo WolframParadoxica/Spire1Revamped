@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bphvtcplxkswp"
-path="res://.godot/imported/invigorate.png-5ef982a9032c87a3d14ea7bdff1d5945.ctex"
+uid="uid://hqsexjfpkg5r"
+path="res://.godot/imported/disarmed_power.png-53a93d22db37ff79bf7648a6a67f7d73.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Spire1Revamped/images/powers/invigorate.png"
-dest_files=["res://.godot/imported/invigorate.png-5ef982a9032c87a3d14ea7bdff1d5945.ctex"]
+source_file="res://Spire1Revamped/images/powers/disarmed_power.png"
+dest_files=["res://.godot/imported/disarmed_power.png-53a93d22db37ff79bf7648a6a67f7d73.ctex"]
 
 [params]
 
