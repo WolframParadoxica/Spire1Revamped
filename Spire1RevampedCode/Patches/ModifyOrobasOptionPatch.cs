@@ -22,7 +22,6 @@ public class ModifyOrobasOptionsPatch
 
         List<EventOption> options = __result.ToList();
         MillenniumEgg millenniumEgg = (MillenniumEgg) ModelDb.Relic<MillenniumEgg>().ToMutable();
-        millenniumEgg.UpdateHoverTips();
         
         if (__instance.Owner != null && millenniumEgg.SetupForPlayer(__instance.Owner) && __instance.Rng.NextFloat() < 0.3333333134651184)
             options[2] = RelicOption(millenniumEgg, "MillenniumEgg.eventDescription", orobas: orobas);

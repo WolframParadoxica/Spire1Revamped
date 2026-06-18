@@ -68,7 +68,6 @@ public class MillenniumEgg : Spire1RevampedRelic
     {
       this.AssertMutable();
       this._serializableStarterCard = value;
-      this.UpdateHoverTips();
     }
   }
 
@@ -80,7 +79,6 @@ public class MillenniumEgg : Spire1RevampedRelic
     {
       this.AssertMutable();
       this._serializableAncientCard = value;
-      this.UpdateHoverTips();
     }
   }
 
@@ -103,7 +101,6 @@ public class MillenniumEgg : Spire1RevampedRelic
       return false;
     this.StarterCard = transcendenceStarterCard.ToSerializable();
     this.AncientCard = this.GetTranscendenceTransformedCard(transcendenceStarterCard).ToSerializable();
-    this.UpdateHoverTips();
     return true;
   }
 
@@ -112,25 +109,6 @@ public class MillenniumEgg : Spire1RevampedRelic
     this.AssertMutable();
     this.StarterCard = starterCard;
     this.AncientCard = ancientCard;
-    this.UpdateHoverTips();
-  }
-
-  public void UpdateHoverTips()
-  {//apparently this is now redundant, need to check, leaving in for now
-    this._extraHoverTips.Clear();
-    if (this.StarterCard != null)
-    {
-      CardModel card = CardModel.FromSerializable(this.StarterCard);
-      this._extraHoverTips.AddRange(card.HoverTips);
-      this._extraHoverTips.Add(HoverTipFactory.FromCard(card));
-      ((StringVar) this.DynamicVars["StarterCard"]).StringValue = card.Title;
-    }
-    if (this.AncientCard == null)
-      return;
-    CardModel card1 = CardModel.FromSerializable(this.AncientCard);
-    this._extraHoverTips.AddRange(card1.HoverTips);
-    this._extraHoverTips.Add(HoverTipFactory.FromCard(card1));
-    ((StringVar) this.DynamicVars["AncientCard"]).StringValue = card1.Title;
   }
 
   public CardModel? GetTranscendenceStarterCard(Player player)
@@ -167,6 +145,7 @@ public class MillenniumEgg : Spire1RevampedRelic
         _extraHoverTips2.Add(HoverTipFactory.FromCard(cardModel));
         ((StringVar)base.DynamicVars["StarterCard"]).StringValue = cardModel.Title;
       }
+
       if (AncientCard != null)
       {
         CardModel cardModel2 = CardModel.FromSerializable(AncientCard);
@@ -174,6 +153,7 @@ public class MillenniumEgg : Spire1RevampedRelic
         _extraHoverTips2.Add(HoverTipFactory.FromCard(cardModel2));
         ((StringVar)base.DynamicVars["AncientCard"]).StringValue = cardModel2.Title;
       }
+
       return _extraHoverTips2;
     }
   }

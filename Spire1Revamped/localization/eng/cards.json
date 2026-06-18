@@ -40,6 +40,6 @@
   "SPIRE1REVAMPED-REDUPLICATE.title": "Reduplicate",
   "SPIRE1REVAMPED-RECURSION.description": "[gold]Evoke[/gold] your rightmost Orb.\n[gold]Channel[/gold] that same Orb.",
   "SPIRE1REVAMPED-RECURSION.title": "Recursion",
-  "SPIRE1REVAMPED-ROGUE.description": "Gain {Block:diff()} [gold]Block[/gold].\nDiscard 1 card.\nNext turn, draw {Cards:diff()} cards.",
+  "SPIRE1REVAMPED-ROGUE.description": "Gain {Block:diff()} [gold]Block[/gold].\nDiscard 1 card.\nIf it is [gold]Sly[/gold], it is played twice.",
   "SPIRE1REVAMPED-ROGUE.title": "Rogue"
 }
