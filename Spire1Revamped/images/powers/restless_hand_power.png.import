@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c686xppfob3x8"
-path="res://.godot/imported/millennium_egg.png-05a6fc7bef5e461a69c91d80fef00a51.ctex"
+uid="uid://dev4o2a2wx54u"
+path="res://.godot/imported/restless_hand_power.png-5adbf168c89d452d099a2604f955be31.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Spire1Revamped/images/relics/millennium_egg.png"
-dest_files=["res://.godot/imported/millennium_egg.png-05a6fc7bef5e461a69c91d80fef00a51.ctex"]
+source_file="res://Spire1Revamped/images/powers/restless_hand_power.png"
+dest_files=["res://.godot/imported/restless_hand_power.png-5adbf168c89d452d099a2604f955be31.ctex"]
 
 [params]
 

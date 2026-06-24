@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c686xppfob3x8"
-path="res://.godot/imported/millennium_egg.png-05a6fc7bef5e461a69c91d80fef00a51.ctex"
+uid="uid://dgg6k7ovo1ii7"
+path="res://.godot/imported/rogue.png-ff5dd8bd552cdc5eb6ea119e73677d01.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Spire1Revamped/images/relics/millennium_egg.png"
-dest_files=["res://.godot/imported/millennium_egg.png-05a6fc7bef5e461a69c91d80fef00a51.ctex"]
+source_file="res://Spire1Revamped/images/card_portraits/big/rogue.png"
+dest_files=["res://.godot/imported/rogue.png-ff5dd8bd552cdc5eb6ea119e73677d01.ctex"]
 
 [params]
 

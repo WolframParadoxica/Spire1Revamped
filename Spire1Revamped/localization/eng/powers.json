@@ -22,5 +22,8 @@
   "SPIRE1REVAMPED-PULSE_OF_LIFE_POWER.title": "Pulse of Life",
   "SPIRE1REVAMPED-RAVAGE_POWER.description": "Your Attacks are [gold]Sly[/gold] this turn.",
   "SPIRE1REVAMPED-RAVAGE_POWER.smartDescription": "Your Attacks are [gold]Sly[/gold] {Amount:plural:this turn|for [blue]{}[/blue] turns}.",
-  "SPIRE1REVAMPED-RAVAGE_POWER.title": "Ravage"
+  "SPIRE1REVAMPED-RAVAGE_POWER.title": "Ravage",
+  "SPIRE1REVAMPED-RESTLESS_HAND_POWER.description": "This turn, [gold]Osty[/gold] Attacks are played an extra time.",
+  "SPIRE1REVAMPED-RESTLESS_HAND_POWER.smartDescription": "{Amount:plural:This turn|For [blue]{}[/blue] turns}, [gold]Osty[/gold] Attacks are played an extra time.",
+  "SPIRE1REVAMPED-RESTLESS_HAND_POWER.title": "Restless Hand"
 }
