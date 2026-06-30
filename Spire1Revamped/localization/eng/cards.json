@@ -17,7 +17,7 @@
   "SPIRE1REVAMPED-FLYING_KNEE.title": "Flying Knee",
   "SPIRE1REVAMPED-FROM_THE_AETHER.description": "Whenever you create a card, draw 1 card.",
   "SPIRE1REVAMPED-FROM_THE_AETHER.title": "From the Aether",
-  "SPIRE1REVAMPED-GALVANIZE.description": "[gold]Channel[/gold] 2 [gold]Lightning[/gold].\n[gold]Lightning[/gold] hits enemies twice this turn.",
+  "SPIRE1REVAMPED-GALVANIZE.description": "[gold]Channel[/gold] 2 [gold]Lightning[/gold].\nThis turn, [gold]Lightning[/gold] deals damage twice.",
   "SPIRE1REVAMPED-GALVANIZE.title": "Galvanize",
   "SPIRE1REVAMPED-GRIM_REAPER.description": "[gold]Osty[/gold] deals {OstyDamage:diff()} damage.\n[gold]Osty[/gold] heals HP equal to damage dealt.",
   "SPIRE1REVAMPED-GRIM_REAPER.title": "Grim Reaper",
@@ -34,12 +34,12 @@
   "SPIRE1REVAMPED-PREIGNITE.title": "Preignite",
   "SPIRE1REVAMPED-PULSE_OF_LIFE.description": "Whenever you play a card, [gold]Osty[/gold] heals {PulseOfLifePower:diff()} HP.",
   "SPIRE1REVAMPED-PULSE_OF_LIFE.title": "Pulse of Life",
-  "SPIRE1REVAMPED-RAVAGE.description": "{IfUpgraded:show:|Gain {VulnerablePower:diff()} [red]Vulnerable[/red].\n}Remove your [gold]Block[/gold].\nYour Attacks have [gold]Sly[/gold] this turn.",
+  "SPIRE1REVAMPED-RAVAGE.description": "Gain {FrailPower:diff()} [red]Frail[/red].\nGain {VulnerablePower:diff()} [red]Vulnerable[/red].\nThis turn, Attacks gain [gold]Sly[/gold].\nDiscard {Cards:diff()} {Cards:plural:card|cards}.",
   "SPIRE1REVAMPED-RAVAGE.title": "Ravage",
-  "SPIRE1REVAMPED-REDUPLICATE.description": "Trigger the passive ability of your rightmost Orb{IfUpgraded:show: twice|}.\n[gold]Evoke[/gold] your rightmost Orb{IfUpgraded:show: twice. |.\n}[gold]Channel[/gold] that same Orb{IfUpgraded:show: twice|}.",
-  "SPIRE1REVAMPED-REDUPLICATE.title": "Reduplicate",
-  "SPIRE1REVAMPED-RECURSION.description": "[gold]Evoke[/gold] your rightmost Orb.\n[gold]Channel[/gold] that same Orb.",
+  "SPIRE1REVAMPED-RECURSION.description": "Trigger the passive ability of your rightmost Orb{IfUpgraded:show: twice|}.\n[gold]Evoke[/gold] your rightmost Orb{IfUpgraded:show: twice. |.\n}[gold]Channel[/gold] that same Orb{IfUpgraded:show: twice|}.",
   "SPIRE1REVAMPED-RECURSION.title": "Recursion",
   "SPIRE1REVAMPED-ROGUE.description": "Gain {Block:diff()} [gold]Block[/gold].\nDiscard 1 card.\nIf it is [gold]Sly[/gold], it is played an extra time.",
-  "SPIRE1REVAMPED-ROGUE.title": "Rogue"
+  "SPIRE1REVAMPED-ROGUE.title": "Rogue",
+  "SPIRE1REVAMPED-VITRIFY.description": "[gold]Channel[/gold] a [gold]Glass[/gold] for each {IfUpgraded:show:of your [gold]Orb Slots[/gold]|[gold]Channeled[/gold] Orb}.\nAdd 2 [gold]Burns[/gold] into your [gold]Discard Pile[/gold].",
+  "SPIRE1REVAMPED-VITRIFY.title": "Vitrify"
 }

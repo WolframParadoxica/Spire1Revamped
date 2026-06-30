@@ -1,4 +1,5 @@
 using BaseLib.Utils;
+using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -19,30 +20,29 @@ public class Ravage() : Spire1RevampedCard(0,
 {
     public const string _powerVarName = "Ravage";
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips
-    {
-        get
-        {
-            List<IHoverTip> hoverTips = [];
-            if (!this.IsUpgraded)
-                hoverTips.Add(HoverTipFactory.FromPower<VulnerablePower>());
-            hoverTips.Add(HoverTipFactory.Static(StaticHoverTip.Block));
-            hoverTips.Add(HoverTipFactory.FromKeyword(CardKeyword.Sly));
-            return hoverTips;
-        }
-    }
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<VulnerablePower>(1M), new DynamicVar(nameof (Ravage), 1M)];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.FromPower<VulnerablePower>(),
+        HoverTipFactory.FromPower<FrailPower>(),
+        HoverTipFactory.FromKeyword(CardKeyword.Sly)
+    ];
+
+    protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new DynamicVar(nameof (Ravage), 1M),
+        new PowerVar<FrailPower>(1M),
+        new PowerVar<VulnerablePower>(1M),
+        new CardsVar(1)
+    ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         Ravage ravage = this;
         await CreatureCmd.TriggerAnim(this.Owner.Creature, "Cast", this.Owner.Character.CastAnimDelay);
-        await CreatureCmd.LoseBlock(this.Owner.Creature, this.Owner.Creature.Block);
-        if (!this.IsUpgraded)
-        {
-            VulnerablePower vulnerablePower = await PowerCmd.Apply<VulnerablePower>(choiceContext, this.Owner.Creature, 1, this.Owner.Creature,
-                (CardModel)this);
-        }
+        FrailPower frailPower = await PowerCmd.Apply<FrailPower>(choiceContext, this.Owner.Creature, 1, this.Owner.Creature, (CardModel)this);
+        VulnerablePower vulnerablePower = await PowerCmd.Apply<VulnerablePower>(choiceContext, this.Owner.Creature, 1, this.Owner.Creature, (CardModel)this);
         RavagePower ravagePower = await PowerCmd.Apply<RavagePower>(choiceContext, this.Owner.Creature, this.DynamicVars[nameof (Ravage)].BaseValue, this.Owner.Creature, (CardModel) this);
+        await CardCmd.Discard(choiceContext, await CardSelectCmd.FromHandForDiscard(choiceContext, this.Owner, new CardSelectorPrefs(CardSelectorPrefs.DiscardSelectionPrompt, this.DynamicVars.Cards.IntValue), (Func<CardModel, bool>) null, (AbstractModel) this));
     }
+    
+    protected override void OnUpgrade() => this.DynamicVars.Cards.UpgradeValueBy(1M);
 }

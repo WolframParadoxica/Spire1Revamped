@@ -36,7 +36,6 @@ public class Rogue() : Spire1RevampedCard(1,
     if (card._hasSingleTurnSly || card.Keywords.Contains(CardKeyword.Sly))
       TemporaryReplay[card] = true;
     await CardCmd.Discard(choiceContext, card);
-//    DrawCardsNextTurnPower cardsNextTurnPower = await PowerCmd.Apply<DrawCardsNextTurnPower>(choiceContext, rogue.Owner.Creature, rogue.DynamicVars.Cards.BaseValue, rogue.Owner.Creature, (CardModel) rogue);
   }
 
   public override int ModifyCardPlayCount(CardModel card, Creature? target, int playCount)
