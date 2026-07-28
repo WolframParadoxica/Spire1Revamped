@@ -1,3 +1,4 @@
+using BaseLib.Extensions;
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -16,7 +17,7 @@ public class Ossify() : Spire1RevampedCard(1,
     CardType.Power, CardRarity.Uncommon,
     TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [(DynamicVar) new PowerVar<DexterityPower>(1M)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [(DynamicVar) new PowerVar<DexterityPower>(1M),(DynamicVar) new PowerVar<OssifyPower>(1M)];
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<DexterityPower>(),HoverTipFactory.Static(StaticHoverTip.SummonStatic)];
     
@@ -24,8 +25,8 @@ public class Ossify() : Spire1RevampedCard(1,
     {
         Ossify ossify = this;
         await CreatureCmd.TriggerAnim(ossify.Owner.Creature, "Cast", ossify.Owner.Character.CastAnimDelay);
-        DexterityPower dexterityPower = await PowerCmd.Apply<DexterityPower>(choiceContext, ossify.Owner.Creature, ossify.DynamicVars.Dexterity.BaseValue, ossify.Owner.Creature, (CardModel) ossify);
-        OssifyPower ossifyPower = await PowerCmd.Apply<OssifyPower>(choiceContext, ossify.Owner.Creature, 1M, ossify.Owner.Creature, (CardModel) ossify);
+        DexterityPower? dexterityPower = await PowerCmd.Apply<DexterityPower>(choiceContext, ossify.Owner.Creature, ossify.DynamicVars.Dexterity.BaseValue, ossify.Owner.Creature, (CardModel) ossify);
+        OssifyPower? ossifyPower = await PowerCmd.Apply<OssifyPower>(choiceContext, ossify.Owner.Creature, DynamicVars.Power<OssifyPower>().BaseValue, ossify.Owner.Creature, (CardModel) ossify);
     }
 
     protected override void OnUpgrade() => this.DynamicVars.Dexterity.UpgradeValueBy(1M);

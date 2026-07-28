@@ -26,7 +26,6 @@ public sealed class InvigoratePower : Spire1RevampedPower
     decimal amount = cards.Count * this.Amount;
     invigoratePower.Flash();
     VigorPower vigorPower = await PowerCmd.Apply<VigorPower>(choiceContext, invigoratePower.Owner, amount, invigoratePower.Owner, (CardModel) null);
-    //VigorPower vigorPower = PowerCmd.Apply<VigorPower>(choiceContext, invigoratePower.Owner.Player, amount, invigoratePower.Owner.Player, (CardModel) cardSource);
   }
   
 }

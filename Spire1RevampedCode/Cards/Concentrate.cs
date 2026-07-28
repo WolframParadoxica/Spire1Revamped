@@ -89,7 +89,7 @@ public class Concentrate() : Spire1RevampedCard(1,
                 else if (card.EnergyCost.GetResolved() == -1)
                     cardCost = 0;
                 else
-                    cardCost = card.EnergyCost.GetResolved();
+                    cardCost = card.EnergyCost.GetWithModifiers(CostModifiers.All);
                 if (card.IsSlyThisTurn)
                     slyCards.Add(card);
                 CardPileAddResult cardPileAddResult = await CardPileCmd.Add(card, discardPile);

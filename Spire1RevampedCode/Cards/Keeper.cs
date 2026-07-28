@@ -1,3 +1,4 @@
+using BaseLib.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -20,16 +21,14 @@ public class Keeper() : Spire1RevampedCard(1,
 {
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.SummonDynamic, (DynamicVar) this.DynamicVars.Summon)];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [
-        (DynamicVar) new SummonVar(7M)
-    ];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [(DynamicVar) new SummonVar(7M),(DynamicVar) new PowerVar<RestlessHandPower>(1M)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         Keeper keeper = this;
         await CreatureCmd.TriggerAnim(this.Owner.Creature, Necrobinder.GetSummonAnimIfApplicable(this.Owner.Character), Necrobinder.GetSummonDelayIfApplicable(this.Owner.Character));
         SummonResult summonResult = await OstyCmd.Summon(choiceContext, this.Owner, this.DynamicVars.Summon.BaseValue, (AbstractModel) this);
-        RestlessHandPower? restlessHandPower = await PowerCmd.Apply<RestlessHandPower>(choiceContext, this.Owner.Creature, 1, this.Owner.Creature, (CardModel) this);
+        RestlessHandPower? restlessHandPower = await PowerCmd.Apply<RestlessHandPower>(choiceContext, this.Owner.Creature, DynamicVars.Power<RestlessHandPower>().BaseValue, this.Owner.Creature, (CardModel) this);
     }
 
     protected override void OnUpgrade()

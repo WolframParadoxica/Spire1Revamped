@@ -1,3 +1,4 @@
+using BaseLib.Extensions;
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -14,13 +15,13 @@ public class FromTheAether() : Spire1RevampedCard(1,
     CardType.Power, CardRarity.Rare,
     TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [(DynamicVar) new CardsVar(1),(DynamicVar) new PowerVar<FromTheAetherPower>(1M)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         FromTheAether fromTheAether = this;
         await CreatureCmd.TriggerAnim(fromTheAether.Owner.Creature, "Cast", fromTheAether.Owner.Character.CastAnimDelay);
-        FromTheAetherPower fromTheAetherPower = await PowerCmd.Apply<FromTheAetherPower>(choiceContext, fromTheAether.Owner.Creature, 1M, fromTheAether.Owner.Creature, (CardModel) fromTheAether);
+        FromTheAetherPower? fromTheAetherPower = await PowerCmd.Apply<FromTheAetherPower>(choiceContext, fromTheAether.Owner.Creature, DynamicVars.Power<FromTheAetherPower>().BaseValue, fromTheAether.Owner.Creature, (CardModel) fromTheAether);
     }
 
     protected override void OnUpgrade() => this.AddKeyword(CardKeyword.Innate);

@@ -30,7 +30,7 @@ public class Pain() : Spire1RevampedCard(-1, CardType.Curse, CardRarity.Curse, T
         if (pile.Type == PileType.Hand)
         {
             IEnumerable<DamageResult> damageResults = await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(),
-                pain.Owner.Creature, 1M, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, (CardModel) pain);
+                pain.Owner.Creature, 1M, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, (CardModel) pain,cardPlay);
         }
     }
 }

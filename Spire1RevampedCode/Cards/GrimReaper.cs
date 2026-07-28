@@ -27,11 +27,10 @@ public class GrimReaper() : Spire1RevampedCard(1,
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         GrimReaper grimReaper = this;
-        ArgumentNullException.ThrowIfNull((object) cardPlay.Target, "cardPlay.Target");
         if (!Osty.CheckMissingWithAnim(grimReaper.Owner))
         {
-            AttackCommand attackCommand = await DamageCmd.Attack(grimReaper.DynamicVars.OstyDamage.BaseValue).FromOsty(grimReaper.Owner.Osty, (CardModel) grimReaper).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_attack_blunt", tmpSfx: "blunt_attack.mp3").Execute(choiceContext);
-            await CreatureCmd.Heal(cardPlay.Card.Owner.Osty, (Decimal) attackCommand.Results.SelectMany<List<DamageResult>, DamageResult>((Func<List<DamageResult>, IEnumerable<DamageResult>>) (r => (IEnumerable<DamageResult>) r)).Sum<DamageResult>((Func<DamageResult, int>) (r => r.TotalDamage + r.OverkillDamage)));
+            AttackCommand attackCommand = await DamageCmd.Attack(grimReaper.DynamicVars.OstyDamage.BaseValue).FromOsty(grimReaper.Owner.Osty, (CardModel) grimReaper,cardPlay).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_attack_blunt", tmpSfx: "blunt_attack.mp3").Execute(choiceContext);
+            await CreatureCmd.Heal(this.Owner.Osty, (Decimal) attackCommand.Results.SelectMany<List<DamageResult>, DamageResult>((Func<List<DamageResult>, IEnumerable<DamageResult>>) (r => (IEnumerable<DamageResult>) r)).Sum<DamageResult>((Func<DamageResult, int>) (r => r.TotalDamage + r.OverkillDamage)));
         }
     }
 
