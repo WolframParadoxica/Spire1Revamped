@@ -47,7 +47,7 @@ public class MillenniumEgg : Spire1RevampedRelic
         },
         {
           ModelDb.Card<Zap>().Id,
-          ModelDb.Card<Galvanize>()
+          ModelDb.Card<Discharge>()
         }
       };
     }
@@ -143,7 +143,7 @@ public class MillenniumEgg : Spire1RevampedRelic
         CardModel cardModel = CardModel.FromSerializable(StarterCard);
         _extraHoverTips2.AddRange(cardModel.HoverTips);
         _extraHoverTips2.Add(HoverTipFactory.FromCard(cardModel));
-        ((StringVar)base.DynamicVars["StarterCard"]).StringValue = cardModel.Title;
+        ((StringVar) DynamicVars["StarterCard"]).StringValue = cardModel.Title;
       }
 
       if (AncientCard != null)
@@ -151,7 +151,7 @@ public class MillenniumEgg : Spire1RevampedRelic
         CardModel cardModel2 = CardModel.FromSerializable(AncientCard);
         _extraHoverTips2.AddRange(cardModel2.HoverTips);
         _extraHoverTips2.Add(HoverTipFactory.FromCard(cardModel2));
-        ((StringVar)base.DynamicVars["AncientCard"]).StringValue = cardModel2.Title;
+        ((StringVar) DynamicVars["AncientCard"]).StringValue = cardModel2.Title;
       }
 
       return _extraHoverTips2;

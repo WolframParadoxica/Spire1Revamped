@@ -17,7 +17,7 @@ public class Recursion() : Spire1RevampedCard(0,
     CardType.Skill, CardRarity.Rare,
     TargetType.Self)
 {
-    
+
 public override OrbEvokeType OrbEvokeType => OrbEvokeType.Front;
 
 protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.Evoke),HoverTipFactory.Static(StaticHoverTip.Channeling)];
@@ -30,7 +30,7 @@ protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Sta
         if (recursion.Owner.PlayerCombatState.OrbQueue.Orbs.Count <= 0)
             return;
         var recurOrb = recursion.Owner.PlayerCombatState!.OrbQueue.Orbs.FirstOrDefault();
-        
+
         await OrbCmd.Passive(choiceContext, recurOrb, (Creature) null);
         await Cmd.CustomScaledWait(0.1f, 0.25f);
         if (recursion.IsUpgraded)
@@ -38,13 +38,13 @@ protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Sta
             await OrbCmd.Passive(choiceContext, recurOrb, (Creature) null);
             await Cmd.CustomScaledWait(0.1f, 0.25f);
         }
-        
-        var recurOrbCopy = ModelDb.GetById<OrbModel>(ModelDb.GetId(recurOrb.GetType())).ToMutable();
-        FieldInfo? evokeValField = AccessTools.Field(recurOrbCopy.GetType(), "_evokeVal");
-        if(evokeValField != null)  evokeValField.SetValue(recurOrbCopy, evokeValField.GetValue(recurOrb));
-        FieldInfo? passiveValField = AccessTools.Field(recurOrbCopy.GetType(), "_passiveVal");
-        if (passiveValField != null) passiveValField.SetValue(recurOrbCopy, passiveValField.GetValue(recurOrb));
-        
+
+        var recurOrbCopy = (OrbModel) recurOrb.MutableClone();//ModelDb.GetById<OrbModel>(ModelDb.GetId(recurOrb.GetType())).ToMutable();
+        //FieldInfo? evokeValField = AccessTools.Field(recurOrbCopy.GetType(), "_evokeVal");
+        //if(evokeValField != null)  evokeValField.SetValue(recurOrbCopy, evokeValField.GetValue(recurOrb));
+        //FieldInfo? passiveValField = AccessTools.Field(recurOrbCopy.GetType(), "_passiveVal");
+        //if (passiveValField != null) passiveValField.SetValue(recurOrbCopy, passiveValField.GetValue(recurOrb));
+
         await CreatureCmd.TriggerAnim(recursion.Owner.Creature, "Cast", recursion.Owner.Character.CastAnimDelay);
         if (recursion.IsUpgraded)
         {
@@ -54,14 +54,8 @@ protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Sta
         await OrbCmd.EvokeNext(choiceContext, recursion.Owner);
         await Cmd.CustomScaledWait(0.1f, 0.25f);
         await OrbCmd.Channel(choiceContext, recurOrb, recursion.Owner);
-        
+
         if (recursion.IsUpgraded)
             await OrbCmd.Channel(choiceContext, recurOrbCopy, Owner);
     }
-
-    protected override void OnUpgrade()
-    {
-
-    }
-    
 }

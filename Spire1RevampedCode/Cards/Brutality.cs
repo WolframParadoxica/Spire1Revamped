@@ -1,3 +1,4 @@
+using BaseLib.Extensions;
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -16,15 +17,15 @@ public class Brutality() : Spire1RevampedCard(0,
     CardType.Power, CardRarity.Rare,
     TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [(DynamicVar) new HpLossVar(1M)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [(DynamicVar) new CardsVar(1),(DynamicVar) new HpLossVar(1M),(DynamicVar) new PowerVar<BrutalityPower>(1M)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         Brutality brutality = this;
         await CreatureCmd.TriggerAnim(brutality.Owner.Creature, "Cast", brutality.Owner.Character.CastAnimDelay);
-        BrutalityPower brutalityPower = await PowerCmd.Apply<BrutalityPower>(choiceContext, brutality.Owner.Creature, 1M, brutality.Owner.Creature, (CardModel) brutality);
+        BrutalityPower? brutalityPower = await PowerCmd.Apply<BrutalityPower>(choiceContext, brutality.Owner.Creature, 1M, brutality.Owner.Creature, (CardModel) brutality);
         VfxCmd.PlayOnCreatureCenter(brutality.Owner.Creature, "vfx/vfx_bloody_impact");
-        IEnumerable<DamageResult> damageResults = await CreatureCmd.Damage(choiceContext, brutality.Owner.Creature, 1M, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, (CardModel) brutality);
+        IEnumerable<DamageResult> damageResults = await CreatureCmd.Damage(choiceContext, brutality.Owner.Creature, DynamicVars.Power<BrutalityPower>().BaseValue, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, (CardModel) brutality,cardPlay);
     }
 
     protected override void OnUpgrade() => this.AddKeyword(CardKeyword.Innate);

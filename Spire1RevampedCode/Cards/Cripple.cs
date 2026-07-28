@@ -31,10 +31,9 @@ public class Cripple() : Spire1RevampedCard(2,
   protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
   {
     Cripple @cripple = this;
-    ArgumentNullException.ThrowIfNull((object) cardPlay.Target, "cardPlay.Target");
-    AttackCommand attackCommand = await DamageCmd.Attack(@cripple.DynamicVars.Damage.BaseValue).FromCard((CardModel) @cripple).Targeting(cardPlay.Target).WithAttackerAnim(Ironclad.GetHeavyAnimIfApplicable(@cripple.Owner.Character), Ironclad.GetHeavyAttackDelayIfApplicable(@cripple.Owner.Character)).WithHitFx("vfx/vfx_heavy_blunt", tmpSfx: "heavy_attack.mp3").WithHitVfxSpawnedAtBase().Execute(choiceContext);
-    VulnerablePower vulnerablePower = await PowerCmd.Apply<VulnerablePower>(choiceContext, cardPlay.Target, @cripple.DynamicVars.Vulnerable.BaseValue, @cripple.Owner.Creature, (CardModel) @cripple);
-    WeakPower weakPower = await PowerCmd.Apply<WeakPower>(choiceContext, cardPlay.Target, @cripple.DynamicVars.Weak.BaseValue*cardPlay.Target.GetPowerAmount<VulnerablePower>(), @cripple.Owner.Creature, (CardModel) @cripple);
+    AttackCommand attackCommand = await DamageCmd.Attack(@cripple.DynamicVars.Damage.BaseValue).FromCard((CardModel) @cripple,cardPlay).Targeting(cardPlay.Target).WithAttackerAnim(Ironclad.GetHeavyAnimIfApplicable(@cripple.Owner.Character), Ironclad.GetHeavyAttackDelayIfApplicable(@cripple.Owner.Character)).WithHitFx("vfx/vfx_heavy_blunt", tmpSfx: "heavy_attack.mp3").WithHitVfxSpawnedAtBase().Execute(choiceContext);
+    VulnerablePower? vulnerablePower = await PowerCmd.Apply<VulnerablePower>(choiceContext, cardPlay.Target, @cripple.DynamicVars.Vulnerable.BaseValue, @cripple.Owner.Creature, (CardModel) @cripple);
+    WeakPower? weakPower = await PowerCmd.Apply<WeakPower>(choiceContext, cardPlay.Target, @cripple.DynamicVars.Weak.BaseValue*cardPlay.Target.GetPowerAmount<VulnerablePower>(), @cripple.Owner.Creature, (CardModel) @cripple);
   }
 
   protected override void OnUpgrade()

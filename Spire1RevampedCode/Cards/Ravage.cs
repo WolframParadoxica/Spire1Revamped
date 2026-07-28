@@ -38,9 +38,9 @@ public class Ravage() : Spire1RevampedCard(0,
     {
         Ravage ravage = this;
         await CreatureCmd.TriggerAnim(this.Owner.Creature, "Cast", this.Owner.Character.CastAnimDelay);
-        FrailPower frailPower = await PowerCmd.Apply<FrailPower>(choiceContext, this.Owner.Creature, 1, this.Owner.Creature, (CardModel)this);
-        VulnerablePower vulnerablePower = await PowerCmd.Apply<VulnerablePower>(choiceContext, this.Owner.Creature, 1, this.Owner.Creature, (CardModel)this);
-        RavagePower ravagePower = await PowerCmd.Apply<RavagePower>(choiceContext, this.Owner.Creature, this.DynamicVars[nameof (Ravage)].BaseValue, this.Owner.Creature, (CardModel) this);
+        FrailPower? frailPower = await PowerCmd.Apply<FrailPower>(choiceContext, this.Owner.Creature, 1, this.Owner.Creature, (CardModel)this);
+        VulnerablePower? vulnerablePower = await PowerCmd.Apply<VulnerablePower>(choiceContext, this.Owner.Creature, 1, this.Owner.Creature, (CardModel)this);
+        RavagePower? ravagePower = await PowerCmd.Apply<RavagePower>(choiceContext, this.Owner.Creature, this.DynamicVars[nameof (Ravage)].BaseValue, this.Owner.Creature, (CardModel) this);
         await CardCmd.Discard(choiceContext, await CardSelectCmd.FromHandForDiscard(choiceContext, this.Owner, new CardSelectorPrefs(CardSelectorPrefs.DiscardSelectionPrompt, this.DynamicVars.Cards.IntValue), (Func<CardModel, bool>) null, (AbstractModel) this));
     }
     

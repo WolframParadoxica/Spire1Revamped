@@ -17,7 +17,7 @@ public class Preignite() : Spire1RevampedCard(0,
 {
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [(DynamicVar) new CardsVar(2)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [(DynamicVar) new CardsVar(3)];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
@@ -37,7 +37,7 @@ public class Preignite() : Spire1RevampedCard(0,
             }
             else
                 break;
-        }//grab the 2(4) cards
+        }//grab the 3(4) cards
         foreach (CardModel original in cards)
         {
             CardPileAddResult cardPileAddResult = await CardPileCmd.Add(original, PileType.Draw);
@@ -50,5 +50,5 @@ public class Preignite() : Spire1RevampedCard(0,
         await CardCmd.AutoPlay(choiceContext, card2, null);
     }
 
-    protected override void OnUpgrade() => this.DynamicVars.Cards.UpgradeValueBy(2M);
+    protected override void OnUpgrade() => this.DynamicVars.Cards.UpgradeValueBy(1M);
 }

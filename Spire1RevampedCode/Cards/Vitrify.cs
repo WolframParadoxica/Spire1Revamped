@@ -36,7 +36,7 @@ protected override IEnumerable<IHoverTip> ExtraHoverTips => [
         for (int i = 0; i < count; ++i)
             await OrbCmd.Channel<GlassOrb>(choiceContext, vitrify.Owner);
         for (int i = 0; i < vitrify.DynamicVars.Cards.IntValue; ++i)
-            await OrbCmd.Channel<GlassOrb>(choiceContext, vitrify.Owner);CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat((CardModel) vitrify.CombatState.CreateCard<Burn>(vitrify.Owner), PileType.Discard, vitrify.Owner));
+            CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat((CardModel) vitrify.CombatState.CreateCard<Burn>(vitrify.Owner), PileType.Discard, vitrify.Owner));
         await Cmd.Wait(0.5f);
     }
 }

@@ -25,7 +25,7 @@ public class Invigorate() : Spire1RevampedCard(1,
     {
         Invigorate invigorate = this;
         await CreatureCmd.TriggerAnim(invigorate.Owner.Creature, "Cast", invigorate.Owner.Character.CastAnimDelay);
-        InvigoratePower invigoratePower = await PowerCmd.Apply<InvigoratePower>(choiceContext, invigorate.Owner.Creature, DynamicVars.Power<InvigoratePower>().BaseValue, invigorate.Owner.Creature, (CardModel) invigorate);
+        InvigoratePower? invigoratePower = await PowerCmd.Apply<InvigoratePower>(choiceContext, invigorate.Owner.Creature, DynamicVars.Power<InvigoratePower>().BaseValue, invigorate.Owner.Creature, (CardModel) invigorate);
     }
 
     protected override void OnUpgrade() => this.DynamicVars.Power<InvigoratePower>().UpgradeValueBy(1);

@@ -30,9 +30,8 @@ public class FlyingKnee() : Spire1RevampedCard(1,
         CardPlay cardPlay)
     {
         FlyingKnee card = this;
-        ArgumentNullException.ThrowIfNull((object) cardPlay.Target, "cardPlay.Target");
-        AttackCommand attackCommand = await DamageCmd.Attack(card.DynamicVars.Damage.BaseValue).FromCard((CardModel) card).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_flying_slash").Execute(choiceContext);
-        EnergyNextTurnPower energyNextTurnPower = await PowerCmd.Apply<EnergyNextTurnPower>(choiceContext, this.Owner.Creature, (Decimal) this.DynamicVars.Energy.IntValue, this.Owner.Creature, (CardModel) this);
+        AttackCommand attackCommand = await DamageCmd.Attack(card.DynamicVars.Damage.BaseValue).FromCard((CardModel) card,cardPlay).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_flying_slash").Execute(choiceContext);
+        EnergyNextTurnPower? energyNextTurnPower = await PowerCmd.Apply<EnergyNextTurnPower>(choiceContext, this.Owner.Creature, (Decimal) this.DynamicVars.Energy.IntValue, this.Owner.Creature, (CardModel) this);
     }
     
     protected override void OnUpgrade()

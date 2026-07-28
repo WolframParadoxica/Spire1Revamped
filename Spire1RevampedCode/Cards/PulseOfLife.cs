@@ -24,7 +24,7 @@ public class PulseOfLife() : Spire1RevampedCard(0,
     {
         PulseOfLife pulseOfLife = this;
         await CreatureCmd.TriggerAnim(pulseOfLife.Owner.Creature, "Cast", pulseOfLife.Owner.Character.CastAnimDelay);
-        PulseOfLifePower pulseOfLifePower = await PowerCmd.Apply<PulseOfLifePower>(choiceContext, pulseOfLife.Owner.Creature, DynamicVars.Power<PulseOfLifePower>().BaseValue, pulseOfLife.Owner.Creature, (CardModel) pulseOfLife);
+        PulseOfLifePower? pulseOfLifePower = await PowerCmd.Apply<PulseOfLifePower>(choiceContext, pulseOfLife.Owner.Creature, DynamicVars.Power<PulseOfLifePower>().BaseValue, pulseOfLife.Owner.Creature, (CardModel) pulseOfLife);
     }
 
     protected override void OnUpgrade() => this.AddKeyword(CardKeyword.Innate);
