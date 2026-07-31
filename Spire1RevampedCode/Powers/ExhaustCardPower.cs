@@ -46,7 +46,7 @@ public sealed class ExhaustCardPower : Spire1RevampedPower
   {
     ExhaustCardPower exhaustCardPower = this;
     int amount;
-    if (cardPlay.Card.Owner.Creature != this.Owner || cardPlay.IsAutoPlay || !this.GetInternalData<ExhaustCardPower.Data>().amountsForPlayedCards.Remove(cardPlay.Card, out amount) || amount <= 0)
+    if (cardPlay.Card.Owner.Creature != this.Owner || cardPlay.IsAutoPlay || !cardPlay.IsFirstInSeries || !this.GetInternalData<ExhaustCardPower.Data>().amountsForPlayedCards.Remove(cardPlay.Card, out amount) || amount <= 0)
       return;
     await PowerCmd.Decrement((PowerModel) this);
     return;
