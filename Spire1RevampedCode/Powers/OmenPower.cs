@@ -64,7 +64,7 @@ public sealed class OmenPower : Spire1RevampedPower
 
   public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
   {
-    if (cardPlay.Card != this.TriggeringCard)// || this.IsFinishedTriggering)
+    if (cardPlay.Card != this.TriggeringCard)
       return;
     this.Flash();
     await PowerCmd.Decrement((PowerModel) this);
