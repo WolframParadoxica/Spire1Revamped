@@ -18,7 +18,13 @@ namespace Spire1Revamped.Spire1RevampedCode.Powers;
 
 public sealed class GrowthSpurtPower : Spire1RevampedPower
 {
+  private CardModel? _currentlyPlayingCard;
+
   private CardModel? _triggeringCard;
+
+  public void SetTriggeringCard(CardModel value){
+    this._triggeringCard = value;
+  }
 
   public override PowerType Type => PowerType.Buff;
 
@@ -44,6 +50,12 @@ public sealed class GrowthSpurtPower : Spire1RevampedPower
     ((BoolVar) DynamicVars["WasDoubled"]).BoolVal = value;
   }
 
+  public override Task BeforeCardPlayed(CardPlay cardPlay)
+  {
+    this._currentlyPlayingCard = cardPlay.Card;
+    return Task.CompletedTask;
+  }
+
   public override decimal ModifyPowerAmountGivenMultiplicative(
     PowerModel power,
     Creature giver,
@@ -51,13 +63,14 @@ public sealed class GrowthSpurtPower : Spire1RevampedPower
     Creature? target,
     CardModel? cardSource)
   {
-    return power is not SummonNextTurnPower ? 1M : 2M;
+    return power is not SummonNextTurnPower || giver != Owner || cardSource == null || amount <= 0M ? 1M : 2M;
   }
 
   public override Task AfterModifyingPowerAmountGiven(PowerModel power)
   {
     if (power is not SummonNextTurnPower)
       return Task.CompletedTask;
+    this.TriggeringCard = _currentlyPlayingCard;
     this.SetWasDoubled(true);
     return Task.CompletedTask;
   }
@@ -79,7 +92,6 @@ public sealed class GrowthSpurtPower : Spire1RevampedPower
   {
     if (modifiedAmount <= 0M || cardSource == null)
       return Task.CompletedTask;
-    this.Flash();
     this.TriggeringCard = cardSource;
     this.SetWasDoubled(true);
     return Task.CompletedTask;
@@ -88,11 +100,12 @@ public sealed class GrowthSpurtPower : Spire1RevampedPower
   public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
   {
     if (cardPlay.Card != this.TriggeringCard)
-      return;
+      this.TriggeringCard = null;
     if (((BoolVar)DynamicVars["WasDoubled"]).BoolVal)
     {
+      this.Flash();
       this.SetWasDoubled(false);
-      await PowerCmd.Decrement((PowerModel)this);
+      await PowerCmd.Decrement(this);
       this.TriggeringCard = null;
     }
   }
@@ -107,8 +120,23 @@ class PostModifySummonPatch
   {
     if (!summoner.HasPower<GrowthSpurtPower>() || source is not CardModel)
       return;
-    GrowthSpurtPower? power = summoner.Creature.GetPower<GrowthSpurtPower>();
-    power.SetWasDoubled(true);
     __result *= 2;
+  }
+}
+
+[HarmonyPatch(typeof(OstyCmd), nameof(OstyCmd.Summon), 
+  typeof(PlayerChoiceContext), typeof(Player), typeof(decimal), typeof(AbstractModel))]
+class PreSummonPatch
+{
+  [HarmonyPrefix]
+  static void PreSummonHook(PlayerChoiceContext choiceContext, Player summoner, decimal amount, AbstractModel source)
+  {
+    if (amount <= 0M) 
+      return;
+    if (source is not CardModel cardSource)
+      return;
+    GrowthSpurtPower? power = summoner.Creature.GetPower<GrowthSpurtPower>();
+    power?.SetTriggeringCard(cardSource);
+    power?.SetWasDoubled(true);
   }
 }

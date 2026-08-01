@@ -29,6 +29,6 @@ public sealed class OssifyPower : Spire1RevampedPower
     Creature? target,
     CardModel? cardSource)
   {
-    return power is not SummonNextTurnPower ? 0M : this.Owner.GetPowerAmount<DexterityPower>()*this.Amount;
+    return power is not SummonNextTurnPower || giver != Owner ? 0M : this.Owner.GetPowerAmount<DexterityPower>()*this.Amount;
   }
 }
