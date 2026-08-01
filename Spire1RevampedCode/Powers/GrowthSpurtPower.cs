@@ -2,6 +2,7 @@
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -11,23 +12,36 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Spire1Revamped.Spire1RevampedCode.Powers;
 
 public sealed class GrowthSpurtPower : Spire1RevampedPower
 {
+  private CardModel? _triggeringCard;
+
   public override PowerType Type => PowerType.Buff;
 
   public override PowerStackType StackType => PowerStackType.Counter;
 
+  private CardModel? TriggeringCard
+  {
+    get => this._triggeringCard;
+    set
+    {
+      this.AssertMutable();
+      this._triggeringCard = value;
+    }
+  }
+
   protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.SummonStatic)];
 
   protected override IEnumerable<DynamicVar> CanonicalVars => [
-    new BoolVar("SummonDoubled", false)
+    new BoolVar("WasDoubled", false)
   ];
   
-  public void SetSummonDoubled(bool value){
-    ((BoolVar) DynamicVars["SummonDoubled"]).BoolVal = value;
+  public void SetWasDoubled(bool value){
+    ((BoolVar) DynamicVars["WasDoubled"]).BoolVal = value;
   }
 
   public override decimal ModifyPowerAmountGivenMultiplicative(
@@ -40,16 +54,40 @@ public sealed class GrowthSpurtPower : Spire1RevampedPower
     return power is not SummonNextTurnPower ? 1M : 2M;
   }
 
-  public override async Task AfterModifyingPowerAmountGiven(PowerModel power)
+  public override Task AfterModifyingPowerAmountGiven(PowerModel power)
   {
-    await PowerCmd.Decrement((PowerModel) this);
+    this.SetWasDoubled(true);
+    return Task.CompletedTask;
   }
 
-  public override async Task AfterSummon(PlayerChoiceContext choiceContext, Player summoner, decimal amount)
+  public override Decimal ModifyBlockMultiplicative(
+    Creature target,
+    Decimal block,
+    ValueProp props,
+    CardModel? cardSource,
+    CardPlay? cardPlay)
   {
-    if (((BoolVar)DynamicVars["SummonDoubled"]).BoolVal)
+    return !props.IsCardOrMonsterMove() || cardSource == null || this.TriggeringCard != null && this.TriggeringCard != cardSource || cardSource.Owner.Creature != this.Owner ? 1M : 2M;
+  }
+
+  public override Task AfterModifyingBlockAmount(
+    Decimal modifiedAmount,
+    CardModel? cardSource,
+    CardPlay? cardPlay)
+  {
+    if (modifiedAmount <= 0M || cardSource == null)
+      return Task.CompletedTask;
+    this.Flash();
+    this.TriggeringCard = cardSource;
+    this.SetWasDoubled(true);
+    return Task.CompletedTask;
+  }
+
+  public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+  {
+    if (((BoolVar)DynamicVars["WasDoubled"]).BoolVal)
     {
-      this.SetSummonDoubled(false);
+      this.SetWasDoubled(false);
       await PowerCmd.Decrement((PowerModel)this);
     }
   }
@@ -65,7 +103,7 @@ class PostModifySummonPatch
     if (!summoner.HasPower<GrowthSpurtPower>() || source is not CardModel)
       return;
     GrowthSpurtPower? power = summoner.Creature.GetPower<GrowthSpurtPower>();
-    power.SetSummonDoubled(true);
+    power.SetWasDoubled(true);
     __result *= 2;
   }
 }

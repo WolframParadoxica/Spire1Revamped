@@ -24,8 +24,10 @@ public class Resorption() : Spire1RevampedCard(1,
     {
         Resorption resorption = this;
         await CreatureCmd.TriggerAnim(this.Owner.Creature, "Cast", this.Owner.Character.CastAnimDelay);
+        if (resorption.IsUpgraded)
+        {
+            GrowthSpurtPower? growthSpurtPower = await PowerCmd.Apply<GrowthSpurtPower>(choiceContext, this.Owner.Creature, DynamicVars.Power<ResorptionPower>().BaseValue, this.Owner.Creature, (CardModel) this);
+        }
         ResorptionPower? resorptionPower = await PowerCmd.Apply<ResorptionPower>(choiceContext, this.Owner.Creature, DynamicVars.Power<ResorptionPower>().BaseValue, this.Owner.Creature, (CardModel) this);
     }
-
-    protected override void OnUpgrade() => this.DynamicVars.Power<ResorptionPower>().UpgradeValueBy(1);
 }
