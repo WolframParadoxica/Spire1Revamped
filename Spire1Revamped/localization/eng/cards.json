@@ -58,7 +58,7 @@
   "SPIRE1REVAMPED-RECURSION.title": "Recursion",
   "SPIRE1REVAMPED-REINFORCED_FIELD.description": "Gain {Block:diff()} [gold]Block[/gold].\nWhenever you play a Power, gains [gold]Block[/gold] an additional time the next time it's played.{InCombat:\n(Gains Block {BlockRepeats:diff()} {BlockRepeats:plural:time|times})|}",
   "SPIRE1REVAMPED-REINFORCED_FIELD.title": "Reinforced Field",
-  "SPIRE1REVAMPED-RESORPTION.description": "Whenever ANYONE dies, your next [gold]{ResorptionPower:plural:Summon|{ResorptionPower:diff()} Summons}[/gold] from cards {ResorptionPower:plural:is|are} doubled.",
+  "SPIRE1REVAMPED-RESORPTION.description": "{IfUpgraded:show:Your next [gold]{ResorptionPower:plural:Summon|{ResorptionPower:diff()} Summons}[/gold] and [gold]Block[/gold] gained from cards {ResorptionPower:plural:is|are} doubled.\n|}Whenever ANYONE dies, your next [gold]{ResorptionPower:plural:Summon|{ResorptionPower:diff()} Summons}[/gold] and [gold]Block[/gold] gained from cards {ResorptionPower:plural:is|are} doubled.",
   "SPIRE1REVAMPED-RESORPTION.title": "Resorption",
   "SPIRE1REVAMPED-REQUEUE.description": "[gold]Evoke[/gold] your rightmost Orb.\n[gold]Channel[/gold] that same Orb.\nAdd a{IfUpgraded:show: 0{energyPrefix:energyIcons(1)}|} [gold]Slimed[/gold] into your [gold]Discard Pile[/gold].",
   "SPIRE1REVAMPED-REQUEUE.title": "Requeue",

@@ -18,14 +18,16 @@ public class Resorption() : Spire1RevampedCard(1,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [(DynamicVar) new PowerVar<ResorptionPower>(1M)];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.SummonStatic)];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.SummonStatic),HoverTipFactory.Static(StaticHoverTip.Block)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         Resorption resorption = this;
         await CreatureCmd.TriggerAnim(this.Owner.Creature, "Cast", this.Owner.Character.CastAnimDelay);
+        if (resorption.IsUpgraded)
+        {
+            GrowthSpurtPower? growthSpurtPower = await PowerCmd.Apply<GrowthSpurtPower>(choiceContext, this.Owner.Creature, DynamicVars.Power<ResorptionPower>().BaseValue, this.Owner.Creature, (CardModel) this);
+        }
         ResorptionPower? resorptionPower = await PowerCmd.Apply<ResorptionPower>(choiceContext, this.Owner.Creature, DynamicVars.Power<ResorptionPower>().BaseValue, this.Owner.Creature, (CardModel) this);
     }
-
-    protected override void OnUpgrade() => this.DynamicVars.Power<ResorptionPower>().UpgradeValueBy(1);
 }

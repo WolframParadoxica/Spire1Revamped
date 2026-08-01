@@ -14,7 +14,7 @@ public sealed class ResorptionPower : Spire1RevampedPower
 
   public override PowerStackType StackType => PowerStackType.Counter;
 
-  protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.SummonStatic)];
+  protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.SummonStatic),HoverTipFactory.Static(StaticHoverTip.Block)];
   
   public override async Task AfterDeath(
     PlayerChoiceContext choiceContext,
