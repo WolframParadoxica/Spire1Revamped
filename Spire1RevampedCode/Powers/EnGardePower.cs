@@ -15,22 +15,12 @@ public sealed class EnGardePower : Spire1RevampedPower
 
   public override PowerStackType StackType => PowerStackType.Counter;
 
-  protected override IEnumerable<IHoverTip> ExtraHoverTips
-  {
-    get
-    {
-      List<IHoverTip> hoverTips = [];
-      hoverTips.AddRange(HoverTipFactory.FromCardWithCardHoverTips<SovereignBlade>());
-      return hoverTips;
-    }
-  }
+  protected override IEnumerable<IHoverTip> ExtraHoverTips => HoverTipFactory.FromCardWithCardHoverTips<SovereignBlade>();
 
   public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
   {
-    EnGardePower enGardePower = this;
-    if (!(cardPlay.Card is SovereignBlade) || cardPlay.Card.Owner.Creature != enGardePower.Owner)
-      return;
-    FreeCardPower? freeCardPower = await PowerCmd.Apply<FreeCardPower>(choiceContext, this.Owner, enGardePower.Amount, this.Owner, (CardModel) ModelDb.Card<EnGarde>());
-    ExhaustCardPower? exhaustCardPower = await PowerCmd.Apply<ExhaustCardPower>(choiceContext, this.Owner, enGardePower.Amount, this.Owner, (CardModel) ModelDb.Card<EnGarde>());
+    if (cardPlay.Card is not SovereignBlade || cardPlay.Card.Owner.Creature != Owner) return;
+    await PowerCmd.Apply<FreeCardPower>(choiceContext, Owner, Amount, Owner, ModelDb.Card<EnGarde>());
+    await PowerCmd.Apply<ExhaustCardPower>(choiceContext, Owner, Amount, Owner, ModelDb.Card<EnGarde>());
   }
 }

@@ -12,30 +12,25 @@ public sealed class PulseOfLifePower : Spire1RevampedPower
 
   public override PowerStackType StackType => PowerStackType.Counter;
 
-  protected override object InitInternalData() => (object) new PulseOfLifePower.Data();
+  protected override object InitInternalData() => new Data();
 
   public override Task BeforeCardPlayed(CardPlay cardPlay)
   {
-    if (cardPlay.Card.Owner.Creature != this.Owner)
-      return Task.CompletedTask;
-    this.GetInternalData<PulseOfLifePower.Data>().amountsForPlayedCards.Add(cardPlay.Card, this.Amount);
+    if (cardPlay.Card.Owner.Creature != Owner) return Task.CompletedTask;
+    GetInternalData<Data>().AmountsForPlayedCards[cardPlay.Card] = Amount;
     return Task.CompletedTask;
   }
 
   public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
   {
-    PulseOfLifePower pulseOfLifePower = this;
-    int amount;
-    if (cardPlay.Card.Owner.Creature != pulseOfLifePower.Owner || !pulseOfLifePower.GetInternalData<PulseOfLifePower.Data>().amountsForPlayedCards.Remove(cardPlay.Card, out amount) || amount <= 0)
-      return;
-    if (cardPlay.Card.Owner.Creature != pulseOfLifePower.Owner || !cardPlay.Card.Owner.IsOstyAlive)
-      return;
-    await CreatureCmd.Heal(cardPlay.Card.Owner.Osty, amount);
+    if (cardPlay.Card.Owner.Creature != Owner || !GetInternalData<Data>().AmountsForPlayedCards.Remove(cardPlay.Card, out var amount) || amount <= 0) return;
+    if (!cardPlay.Card.Owner.IsOstyAlive) return;
+    Flash();
+    await CreatureCmd.Heal(cardPlay.Card.Owner.Osty!, amount);
   }
 
-  public class Data
+  private class Data
   {
-    public readonly Dictionary<CardModel, int> amountsForPlayedCards = new Dictionary<CardModel, int>();
+    public readonly Dictionary<CardModel, int> AmountsForPlayedCards = new();
   }
-  
 }

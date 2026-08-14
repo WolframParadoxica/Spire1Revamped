@@ -1,5 +1,4 @@
-﻿using BaseLib.Abstracts;
-using BaseLib.Utils;
+﻿using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -16,34 +15,33 @@ namespace Spire1Revamped.Spire1RevampedCode.Relics;
 public class HoveringKite : Spire1RevampedRelic
 {
     private bool _wasUsedThisTurn;
-    
+
     public override RelicRarity Rarity => RelicRarity.Ancient;
-    
+
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.ForEnergy((CustomRelicModel) this)
+        HoverTipFactory.ForEnergy(this)
     ];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [(DynamicVar) new EnergyVar(1)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
 
-    public bool WasUsedThisTurn
+    private bool WasUsedThisTurn
     {
-        get => this._wasUsedThisTurn;
+        get => _wasUsedThisTurn;
         set
         {
-            this.AssertMutable();
-            this._wasUsedThisTurn = value;
+            AssertMutable();
+            _wasUsedThisTurn = value;
         }
     }
 
     public override async Task AfterCardDiscarded(PlayerChoiceContext choiceContext, CardModel card)
     {
-        HoveringKite hoveringKite = this;
-        if (card.Owner != hoveringKite.Owner || hoveringKite.WasUsedThisTurn)
+        if (card.Owner != Owner || WasUsedThisTurn)
             return;
-        hoveringKite.Flash();
-        await PlayerCmd.GainEnergy(1, hoveringKite.Owner);
-        hoveringKite.Status = RelicStatus.Normal;
-        hoveringKite.WasUsedThisTurn = true;
+        Flash();
+        await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, Owner);
+        Status = RelicStatus.Normal;
+        WasUsedThisTurn = true;
     }
 
     public override Task BeforeSideTurnEnd(
@@ -51,11 +49,10 @@ public class HoveringKite : Spire1RevampedRelic
         CombatSide side,
         IEnumerable<Creature> participants)
     {
-        HoveringKite hoveringKite = this;
-        if (!participants.Contains<Creature>(hoveringKite.Owner.Creature))
+        if (!participants.Contains(Owner.Creature))
             return Task.CompletedTask;
-        this.WasUsedThisTurn = false;
-        this.Status = RelicStatus.Active;
+        WasUsedThisTurn = false;
+        Status = RelicStatus.Active;
         return Task.CompletedTask;
     }
 }

@@ -11,45 +11,23 @@ namespace Spire1Revamped.Spire1RevampedCode.Cards;
 
 [Pool(typeof(DefectCardPool))]
 
-public class ReinforcedField() : Spire1RevampedCard(1,
-    CardType.Skill, CardRarity.Uncommon,
-    TargetType.Self)
+public class ReinforcedField() : Spire1RevampedCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
-    public const string _blockRepeatsKey = "BlockRepeats";
-    protected override IEnumerable<DynamicVar> CanonicalVars => [
-        (DynamicVar) new BlockVar(7M, ValueProp.Move),
-        (DynamicVar) new ("BlockRepeats", 1)
-    ];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7M, ValueProp.Move), new ("BlockRepeats", 1)];
 
-    protected override async Task OnPlay(
-        PlayerChoiceContext choiceContext,
-        CardPlay cardPlay)
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        ReinforcedField reinforcedField = this;
-        await CreatureCmd.TriggerAnim(this.Owner.Creature, "Cast", this.Owner.Character.CastAnimDelay);
-        int blockGains = (int) DynamicVars["BlockRepeats"].BaseValue;
-        for (int i = 0; i < blockGains; ++i)
-        {
-            Decimal num = await CreatureCmd.GainBlock(this.Owner.Creature, this.DynamicVars.Block, cardPlay);
-        }
-
-        if (cardPlay.IsLastInSeries)
-        {
-            DynamicVars["BlockRepeats"].BaseValue = 1;
-        }
+        await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+        var blockGains = (int) DynamicVars["BlockRepeats"].BaseValue;
+        for (var i = 0; i < blockGains; ++i) await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+        if (cardPlay.IsLastInSeries) DynamicVars["BlockRepeats"].BaseValue = 1;
     }
 
     public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (cardPlay.Card.Owner != this.Owner || !CombatManager.Instance.IsInProgress || cardPlay.Card.Type != CardType.Power)
-            return Task.CompletedTask;
-        ++DynamicVars["BlockRepeats"].BaseValue
-        ;
+        if (cardPlay.Card.Owner == Owner && CombatManager.Instance.IsInProgress && cardPlay.Card.Type is CardType.Power) ++DynamicVars["BlockRepeats"].BaseValue;
         return Task.CompletedTask;
     }
-    
-    protected override void OnUpgrade()
-    {
-        this.DynamicVars.Block.UpgradeValueBy(2M);
-    }
+
+    protected override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(2M);
 }

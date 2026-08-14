@@ -1,4 +1,7 @@
 {
+  "SPIRE1REVAMPED-ATTACK_COST_UP_POWER.description": "Attacks cost an additional Energy this turn.",
+  "SPIRE1REVAMPED-ATTACK_COST_UP_POWER.smartDescription": "Attacks cost an additional {Amount:energyIcons()} this turn.",
+  "SPIRE1REVAMPED-ATTACK_COST_UP_POWER.title": "Attack Cost Up",
   "SPIRE1REVAMPED-AMBIVALENCE_POWER.description": "Whenever a card is put on top of your [gold]Draw Pile[/gold], draw [blue]1[/blue] card at the start of your next turn.",
   "SPIRE1REVAMPED-AMBIVALENCE_POWER.smartDescription": "Whenever a card is put on top of your [gold]Draw Pile[/gold], draw [blue]{Amount}[/blue] {Amount:plural:card|cards} at the start of your next turn.",
   "SPIRE1REVAMPED-AMBIVALENCE_POWER.title": "Ambivalence",

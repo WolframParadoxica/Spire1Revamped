@@ -12,40 +12,38 @@ namespace Spire1Revamped.Spire1RevampedCode.Patches;
 [HarmonyPatch(typeof(Orobas), "AllPossibleOptions", MethodType.Getter)]
 public class AddAllOrobasOptionsPatch
 {
-    public static void Postfix(Orobas __instance, ref IEnumerable<EventOption> __result)
+    public static void Postfix(Orobas? __instance, ref IEnumerable<EventOption> __result)
     {
-        if (__instance is not Orobas orobas)
+        if (__instance is null)
             return;
-        List<EventOption> options = __result.ToList();
-        options.Add(RelicOption<MillenniumEgg>(customDonePage: "OROBAS.pages.DONE.POSITIVE.description", orobas: orobas));
+        var options = __result.ToList();
+        options.Add(RelicOption<MillenniumEgg>(orobas: __instance));
         __result = options;
     }
-    
-    protected static EventOption RelicOption<T>(string pageName = "INITIAL", string? customDonePage = null, Orobas orobas = null) where T : RelicModel
+
+    private static EventOption RelicOption<T>(string pageName = "INITIAL", Orobas? orobas = null) where T : RelicModel
     {
         return RelicOption(ModelDb.Relic<T>().ToMutable(), pageName, orobas: orobas);
     }
 
-    protected static EventOption RelicOption(RelicModel relic, string pageName = "INITIAL", string? customDonePage = null, Orobas orobas = null)
+    private static EventOption RelicOption(RelicModel relic, string pageName = "INITIAL", Orobas? orobas = null)
     {
         relic.AssertMutable();
-        relic.Owner = orobas.Owner;
+        relic.Owner = orobas!.Owner!;
 
-        string textKey = $"{StringHelper.Slugify(orobas.GetType().Name)}.pages.{pageName}.options.{relic.Id.Entry}";
-        //string textKey = orobas.OptionKey(pageName, relic.Id.Entry);
+        var textKey = $"{StringHelper.Slugify(orobas.GetType().Name)}.pages.{pageName}.options.{relic.Id.Entry}";
         return EventOption.FromRelic(relic, orobas, OnChosen, textKey);
 
         async Task OnChosen()
         {
-            RelicModel relicModel = await RelicCmd.Obtain(relic, orobas.Owner);
-            PropertyInfo customDonePageProp = typeof(AncientEventModel).GetProperty("CustomDonePage",
+            await RelicCmd.Obtain(relic, orobas.Owner!);
+            var customDonePageProp = typeof(AncientEventModel).GetProperty("CustomDonePage",
                 BindingFlags.NonPublic | BindingFlags.Instance);
-            customDonePageProp.SetValue(orobas, "OROBAS.pages.DONE.POSITIVE.description");
-        
-            MethodInfo doneMethod = typeof(AncientEventModel).GetMethod("Done",
-                BindingFlags.NonPublic | BindingFlags.Instance);
-            doneMethod.Invoke(orobas, null);
+            customDonePageProp!.SetValue(orobas, "OROBAS.pages.DONE.POSITIVE.description");
 
+            var doneMethod = typeof(AncientEventModel).GetMethod("Done",
+                BindingFlags.NonPublic | BindingFlags.Instance);
+            doneMethod!.Invoke(orobas, null);
         }
     }
 }

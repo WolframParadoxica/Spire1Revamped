@@ -15,15 +15,11 @@ public sealed class ResorptionPower : Spire1RevampedPower
   public override PowerStackType StackType => PowerStackType.Counter;
 
   protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.SummonStatic),HoverTipFactory.Static(StaticHoverTip.Block)];
-  
-  public override async Task AfterDeath(
-    PlayerChoiceContext choiceContext,
-    Creature creature,
-    bool wasRemovalPrevented,
-    float deathAnimLength)
+
+  public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
   {
-    if (wasRemovalPrevented)
-      return;
-    GrowthSpurtPower? growthSpurtPower = await PowerCmd.Apply<GrowthSpurtPower>(new BlockingPlayerChoiceContext(), this.Owner, this.Amount, this.Owner,  (CardModel) ModelDb.Card<Resorption>());
+    if (wasRemovalPrevented) return;
+    Flash();
+    await PowerCmd.Apply<GrowthSpurtPower>(new BlockingPlayerChoiceContext(), Owner, Amount, Owner, ModelDb.Card<Resorption>());
   }
 }

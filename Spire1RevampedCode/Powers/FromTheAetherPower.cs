@@ -14,13 +14,8 @@ public sealed class FromTheAetherPower : Spire1RevampedPower
 
   public override async Task AfterCardGeneratedForCombat(CardModel card, Player? creator)
   {
-    FromTheAetherPower fromTheAetherPower = this;
-    if (creator == null || creator.Creature != fromTheAetherPower.Owner)
-      return;
-    fromTheAetherPower.Flash();
-    IEnumerable<CardModel> cardModels = await CardPileCmd.Draw(
-      (PlayerChoiceContext) new BlockingPlayerChoiceContext(),
-      (Decimal) fromTheAetherPower.Amount,
-      fromTheAetherPower.Owner.Player);
+    if (creator is null || creator.Creature != Owner) return;
+    Flash();
+    await CardPileCmd.Draw(new BlockingPlayerChoiceContext(), Amount, Owner.Player!);
   }
 }

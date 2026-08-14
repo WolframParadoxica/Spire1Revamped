@@ -18,17 +18,9 @@ public sealed class BrutalityPower : Spire1RevampedPower, IHasSecondAmount
   public override PowerStackType StackType => PowerStackType.Counter;
 
   protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("HPLossCount", 0)];
-  public override async Task AfterDamageReceived(
-    PlayerChoiceContext choiceContext,
-    Creature target,
-    DamageResult result,
-    ValueProp props,
-    Creature? dealer,
-    CardModel? cardSource)
+  public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
   {
-    BrutalityPower brutalityPower = this;
-    if (target != brutalityPower.Owner || result.UnblockedDamage <= 0 || CombatManager.Instance.IsOverOrEnding || brutalityPower.Owner.IsDead)
-      return;
+    if (target != Owner || result.UnblockedDamage <= 0 || CombatManager.Instance.IsOverOrEnding || Owner.IsDead) return;
     switch (DynamicVars["HPLossCount"].IntValue)
     {
       case 0:
@@ -36,11 +28,8 @@ public sealed class BrutalityPower : Spire1RevampedPower, IHasSecondAmount
         break;
       case 1:
         DynamicVars["HPLossCount"].UpgradeValueBy(-1);
-        this.Flash();
-        for (int i = 0; (Decimal) i < this.Amount; ++i)
-        {
-          CardModel cardModel = await CardPileCmd.Draw(choiceContext, this.Owner.Player);
-        }
+        Flash();
+        for (var i = 0; (decimal) i < Amount; ++i) await CardPileCmd.Draw(choiceContext, Owner.Player!);
         break;
     }
     this.InvokeSecondAmountChanged();

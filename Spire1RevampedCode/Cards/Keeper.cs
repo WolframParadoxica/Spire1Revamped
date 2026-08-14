@@ -5,34 +5,25 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using BaseLib.Utils;
-using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Models.Characters;
 using Spire1Revamped.Spire1RevampedCode.Powers;
 
-#nullable enable
 namespace Spire1Revamped.Spire1RevampedCode.Cards;
 
 [Pool(typeof(NecrobinderCardPool))]
-public class Keeper() : Spire1RevampedCard(1,
-    CardType.Skill, CardRarity.Ancient,
-    TargetType.Self)
+public class Keeper() : Spire1RevampedCard(1, CardType.Skill, CardRarity.Ancient, TargetType.Self)
 {
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.SummonDynamic, (DynamicVar) this.DynamicVars.Summon)];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.SummonDynamic, DynamicVars.Summon)];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [(DynamicVar) new SummonVar(7M),(DynamicVar) new PowerVar<RestlessHandPower>(1M)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new SummonVar(7M),new PowerVar<RestlessHandPower>(1M)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        Keeper keeper = this;
-        await CreatureCmd.TriggerAnim(this.Owner.Creature, Necrobinder.GetSummonAnimIfApplicable(this.Owner.Character), Necrobinder.GetSummonDelayIfApplicable(this.Owner.Character));
-        SummonResult summonResult = await OstyCmd.Summon(choiceContext, this.Owner, this.DynamicVars.Summon.BaseValue, (AbstractModel) this);
-        RestlessHandPower? restlessHandPower = await PowerCmd.Apply<RestlessHandPower>(choiceContext, this.Owner.Creature, DynamicVars.Power<RestlessHandPower>().BaseValue, this.Owner.Creature, (CardModel) this);
+        await CreatureCmd.TriggerAnim(Owner.Creature, Necrobinder.GetSummonAnimIfApplicable(Owner.Character), Necrobinder.GetSummonDelayIfApplicable(Owner.Character));
+        await OstyCmd.Summon(choiceContext, Owner, DynamicVars.Summon.BaseValue, this);
+        await PowerCmd.Apply<RestlessHandPower>(choiceContext, Owner.Creature, DynamicVars.Power<RestlessHandPower>().BaseValue, Owner.Creature, this);
     }
 
-    protected override void OnUpgrade()
-    {
-        this.DynamicVars.Summon.UpgradeValueBy(3M);
-    }
+    protected override void OnUpgrade() => DynamicVars.Summon.UpgradeValueBy(3M);
 }
