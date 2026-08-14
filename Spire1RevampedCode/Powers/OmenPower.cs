@@ -5,74 +5,44 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 
-#nullable enable
 namespace Spire1Revamped.Spire1RevampedCode.Powers;
 
 public sealed class OmenPower : Spire1RevampedPower
 {
-  private CardModel? _triggeringCard;
-  private List<PowerModel>? _doubledPowers;
+    private CardModel? _triggeringCard;
+    private List<PowerModel>? _doubledPowers;
 
-  public override PowerType Type => PowerType.Debuff;
+    public override PowerType Type => PowerType.Debuff;
+    public override PowerStackType StackType => PowerStackType.Counter;
 
-  public override PowerStackType StackType => PowerStackType.Counter;
+    private CardModel? TriggeringCard { get => _triggeringCard; set { AssertMutable(); _triggeringCard = value; } }
+    private List<PowerModel> DoubledPowers { get { AssertMutable(); _doubledPowers ??= []; return _doubledPowers; } }
 
-  private CardModel? TriggeringCard
-  {
-    get => this._triggeringCard;
-    set
+    public override Task BeforePowerAmountChanged(PowerModel power, decimal amount, Creature target, Creature? applier, CardModel? cardSource)
     {
-      this.AssertMutable();
-      this._triggeringCard = value;
+        if ((TriggeringCard is not null && TriggeringCard != cardSource) || cardSource is null || target != Owner || !power.IsVisible || power.GetTypeForAmount(amount) != PowerType.Debuff) return Task.CompletedTask;
+        TriggeringCard = cardSource;
+        DoubledPowers.Add(power);
+        return Task.CompletedTask;
     }
-  }
 
-  private List<PowerModel> DoubledPowers
-  {
-    get
+    public override decimal ModifyPowerAmountGivenMultiplicative(PowerModel power, Creature giver, decimal amount, Creature? target, CardModel? cardSource)
     {
-      this.AssertMutable();
-      if (this._doubledPowers == null)
-        this._doubledPowers = new List<PowerModel>();
-      return this._doubledPowers;
+        if (target != Owner || cardSource is null || (TriggeringCard is not null && TriggeringCard != cardSource) || HasDoubledTemporaryPowerSource(power) || power.GetTypeForAmount(amount) != PowerType.Debuff) return 1M;
+        return 2M;
     }
-  }
 
-  public override Task BeforePowerAmountChanged(
-    PowerModel power,
-    Decimal amount,
-    Creature target,
-    Creature? applier,
-    CardModel? cardSource)
-  {
-    if (this.TriggeringCard != null || cardSource == null || target.Side != this.Owner.Side || target != this.Owner || !power.IsVisible || power.GetTypeForAmount(amount) != PowerType.Debuff)
-      return Task.CompletedTask;
-    this.TriggeringCard = cardSource;
-    this.DoubledPowers.Add(power);
-    return Task.CompletedTask;
-  }
+    public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        if (cardPlay.Card != TriggeringCard) return;
+        Flash();
+        await PowerCmd.Decrement(this);
+        TriggeringCard = null;
+        DoubledPowers.Clear();
+    }
 
-  public override Decimal ModifyPowerAmountGivenMultiplicative(
-    PowerModel power,
-    Creature giver,
-    Decimal amount,
-    Creature? target,
-    CardModel? cardSource)
-  {
-    return this.TriggeringCard == null || cardSource != this.TriggeringCard || target != this.Owner || this.HasDoubledTemporaryPowerSource(power) || power.GetTypeForAmount(amount) != PowerType.Debuff ? 1M : 2M;
-  }
-
-  public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
-  {
-    if (cardPlay.Card != this.TriggeringCard)
-      return;
-    this.Flash();
-    await PowerCmd.Decrement((PowerModel) this);
-    this.TriggeringCard = null;
-  }
-
-  private bool HasDoubledTemporaryPowerSource(PowerModel power)
-  {
-    return this.DoubledPowers.OfType<ITemporaryPower>().Any<ITemporaryPower>((Func<ITemporaryPower, bool>) (p => p.InternallyAppliedPower.GetType() == power.GetType()));
-  }
+    private bool HasDoubledTemporaryPowerSource(PowerModel power)
+    {
+        return DoubledPowers.OfType<ITemporaryPower>().Any(p => p.InternallyAppliedPower.GetType() == power.GetType());
+    }
 }

@@ -1,6 +1,5 @@
 using System.Reflection;
 using HarmonyLib;
-using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Events;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
@@ -12,44 +11,50 @@ namespace Spire1Revamped.Spire1RevampedCode.Patches;
 [HarmonyPatch(typeof(Darv), "AllPossibleOptions", MethodType.Getter)]
 public class AddAllDarvOptionsPatch
 {
-    public static void Postfix(Darv __instance, ref IEnumerable<EventOption> __result)
+    public static void Postfix(Darv? __instance, ref IEnumerable<EventOption> __result)
     {
-        if (__instance is not Darv darv)
+        if (__instance is null)
             return;
-        List<EventOption> options = __result.ToList();
-        options.Add(RelicOption<MarkOfPain>(customDonePage: "DARV.pages.DONE.POSITIVE.description", darv: darv));
-        options.Add(RelicOption<HoveringKite>(customDonePage: "DARV.pages.DONE.POSITIVE.description", darv: darv));
-        options.Add(RelicOption<Monocle>(customDonePage: "DARV.pages.DONE.POSITIVE.description", darv: darv));
-        options.Add(RelicOption<BleedingAnvil>(customDonePage: "DARV.pages.DONE.POSITIVE.description", darv: darv));
-        options.Add(RelicOption<FrozenBattery>(customDonePage: "DARV.pages.DONE.POSITIVE.description", darv: darv));
+        var options = __result.ToList();
+        options.Add(RelicOption<MarkOfPain>(darv: __instance));
+        options.Add(RelicOption<HoveringKite>(darv: __instance));
+        options.Add(RelicOption<Monocle>(darv: __instance));
+        options.Add(RelicOption<BleedingAnvil>(darv: __instance));
+        options.Add(RelicOption<FrozenBattery>(darv: __instance));
         __result = options;
     }
-    
-    protected static EventOption RelicOption<T>(string pageName = "INITIAL", string? customDonePage = null, Darv darv = null) where T : RelicModel
+
+    private static EventOption RelicOption<T>(string pageName = "INITIAL", Darv? darv = null) where T : RelicModel
     {
-        return RelicOption(ModelDb.Relic<T>().ToMutable(), pageName, darv: darv);
+        return RelicOption(ModelDb.Relic<T>().ToMutable(), pageName, darv: darv!);
     }
 
-    protected static EventOption RelicOption(RelicModel relic, string pageName = "INITIAL", string? customDonePage = null, Darv darv = null)
+    private static EventOption RelicOption(RelicModel relic, string pageName = "INITIAL", Darv? darv = null)
     {
         relic.AssertMutable();
-        relic.Owner = darv.Owner;
+        relic.Owner = darv!.Owner!;
 
-        string textKey = $"{StringHelper.Slugify(darv.GetType().Name)}.pages.{pageName}.options.{relic.Id.Entry}";
-        //string textKey = darv.OptionKey(pageName, relic.Id.Entry);
+        var textKey = $"{StringHelper.Slugify(darv.GetType().Name)}.pages.{pageName}.options.{relic.Id.Entry}";
+
         return EventOption.FromRelic(relic, darv, OnChosen, textKey);
 
-        async Task OnChosen()
+        Task OnChosen()
         {
-            RelicModel relicModel = await RelicCmd.Obtain(relic, darv.Owner);
-            PropertyInfo customDonePageProp = typeof(AncientEventModel).GetProperty("CustomDonePage",
-                BindingFlags.NonPublic | BindingFlags.Instance);
-            customDonePageProp.SetValue(darv, "DARV.pages.DONE.POSITIVE.description");
+            try
+            {
+                var customDonePageProp = typeof(AncientEventModel).GetProperty("CustomDonePage",
+                    BindingFlags.NonPublic | BindingFlags.Instance);
+                customDonePageProp!.SetValue(darv, "DARV.pages.DONE.POSITIVE.description");
         
-            MethodInfo doneMethod = typeof(AncientEventModel).GetMethod("Done",
-                BindingFlags.NonPublic | BindingFlags.Instance);
-            doneMethod.Invoke(darv, null);
-
+                var doneMethod = typeof(AncientEventModel).GetMethod("Done",
+                    BindingFlags.NonPublic | BindingFlags.Instance);
+                doneMethod!.Invoke(darv, null);
+                return Task.CompletedTask;
+            }
+            catch (Exception exception)
+            {
+                return Task.FromException(exception);
+            }
         }
     }
 }

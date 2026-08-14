@@ -14,21 +14,15 @@ public sealed class OssifyPower : Spire1RevampedPower
   public override PowerStackType StackType => PowerStackType.Counter;
 
   protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.SummonStatic)];
-  
+
   public override decimal ModifySummonAmount(Player player, decimal amount1, AbstractModel? abstractModel)
   {
-    if (this.Owner != player.Creature || abstractModel is not CardModel)
-      return amount1;
-    return amount1 + this.Owner.GetPowerAmount<DexterityPower>()*this.Amount;
+    if (Owner != player.Creature || abstractModel is not CardModel) return amount1;
+    return amount1 + Owner.GetPowerAmount<DexterityPower>()*Amount;
   }
-  
-  public override Decimal ModifyPowerAmountGivenAdditive(
-    PowerModel power,
-    Creature giver,
-    Decimal amount,
-    Creature? target,
-    CardModel? cardSource)
+
+  public override decimal ModifyPowerAmountGivenAdditive(PowerModel power, Creature giver, decimal amount, Creature? target, CardModel? cardSource)
   {
-    return power is not SummonNextTurnPower || giver != Owner ? 0M : this.Owner.GetPowerAmount<DexterityPower>()*this.Amount;
+    return power is not SummonNextTurnPower || giver != Owner ? 0M : Owner.GetPowerAmount<DexterityPower>()*Amount;
   }
 }

@@ -12,41 +12,38 @@ namespace Spire1Revamped.Spire1RevampedCode.Patches;
 [HarmonyPatch(typeof (DustyTome), "SetupForPlayer")]
 internal class DustyTomePatch
 {
-    private static bool _initialized = false;
-    private static readonly Dictionary<ModelId, List<ModelId>> _customTome = new Dictionary<ModelId, List<ModelId>>();
+    private static bool _initialized;
+    private static readonly Dictionary<ModelId, List<ModelId>> CustomTomeDict = new();
 
     private static Dictionary<ModelId, List<ModelId>> CustomTome
     {
         get
         {
-            if (DustyTomePatch._initialized)
-                return DustyTomePatch._customTome;
-            DustyTomePatch._initialized = true;
-            int num = 0;
-            foreach (CardModel allCard in ModelDb.AllCards)
+            if (_initialized)
+                return CustomTomeDict;
+            _initialized = true;
+            var num = 0;
+            foreach (var allCard in ModelDb.AllCards)
             {
-                if (allCard is ITomeCard tomeCard)
+                // ReSharper disable once SuspiciousTypeConversion.Global
+                if (allCard is not ITomeCard tomeCard) continue;
+                if (!CustomTomeDict.TryGetValue(tomeCard.TomeCharacter.Id, out var modelIdList))
                 {
-                    List<ModelId> modelIdList;
-                    if (!DustyTomePatch._customTome.TryGetValue(tomeCard.TomeCharacter.Id, out modelIdList))
-                    {
-                        modelIdList = new List<ModelId>();
-                        DustyTomePatch._customTome[tomeCard.TomeCharacter.Id] = modelIdList;
-                    }
-                    modelIdList.Add(allCard.Id);
-                    ++num;
+                    modelIdList = [];
+                    CustomTomeDict[tomeCard.TomeCharacter.Id] = modelIdList;
                 }
+                modelIdList.Add(allCard.Id);
+                ++num;
             }
             BaseLibMain.Logger.Info($"Initialized DustyTome dictionary; found {num} ITomeCard implementations");
-            return DustyTomePatch._customTome;
+            return CustomTomeDict;
         }
     }
 
     [HarmonyPrefix]
     private static bool DustyTomeCardOverride(DustyTome __instance, Player player)
     {
-        List<ModelId> items;
-        if (!DustyTomePatch.CustomTome.TryGetValue(player.Character.Id, out items))
+        if (!CustomTome.TryGetValue(player.Character.Id, out var items))
         {
             switch (player.Character)
             {
@@ -68,7 +65,7 @@ internal class DustyTomePatch
             }
             return true;
         }
-        __instance.AncientCard = player.PlayerRng.Rewards.NextItem<ModelId>((IEnumerable<ModelId>) items);
+        __instance.AncientCard = player.PlayerRng.Rewards.NextItem(items);
         return false;
     }
 }

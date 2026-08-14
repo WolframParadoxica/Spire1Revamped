@@ -1,6 +1,5 @@
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -11,124 +10,97 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.RelicPools;
 using Spire1Revamped.Spire1RevampedCode.Cards;
 
-#nullable enable
 namespace Spire1Revamped.Spire1RevampedCode.Relics;
 
 [Pool(typeof(EventRelicPool))]
 public class MillenniumEgg : Spire1RevampedRelic
 {
-  public const string _starterCardKey = "StarterCard";
-  public const string _ancientCardKey = "AncientCard";
-  public SerializableCard? _serializableStarterCard;
-  public SerializableCard? _serializableAncientCard;
-  public List<IHoverTip> _extraHoverTips = new List<IHoverTip>();
+  public const string StarterCardKey = "StarterCard";
+  public const string AncientCardKey = "AncientCard";
+  private SerializableCard? _serializableStarterCard;
+  private SerializableCard? _serializableAncientCard;
+  public List<IHoverTip> ExtraHoverTips1 = [];
 
-  public static Dictionary<ModelId, CardModel> TranscendenceUpgrades
-  {
-    get
+  private static Dictionary<ModelId, CardModel> TranscendenceUpgrades =>
+    new()
     {
-      return new Dictionary<ModelId, CardModel>()
       {
-        {
-          ModelDb.Card<Bash>().Id,
-          ModelDb.Card<Cripple>()
-        },
-        {
-          ModelDb.Card<Survivor>().Id,
-          ModelDb.Card<Rogue>()
-        },
-        {
-          ModelDb.Card<Bodyguard>().Id,
-          ModelDb.Card<Keeper>()
-        },
-        {
-          ModelDb.Card<Venerate>().Id,
-          ModelDb.Card<Ascend>()
-        },
-        {
-          ModelDb.Card<Zap>().Id,
-          ModelDb.Card<Discharge>()
-        }
-      };
-    }
-  }
+        ModelDb.Card<Bash>().Id,
+        ModelDb.Card<Cripple>()
+      },
+      {
+        ModelDb.Card<Survivor>().Id,
+        ModelDb.Card<Rogue>()
+      },
+      {
+        ModelDb.Card<Bodyguard>().Id,
+        ModelDb.Card<Keeper>()
+      },
+      {
+        ModelDb.Card<Venerate>().Id,
+        ModelDb.Card<Ascend>()
+      },
+      {
+        ModelDb.Card<Zap>().Id,
+        ModelDb.Card<Discharge>()
+      }
+    };
 
-  public static List<CardModel> TranscendenceCards
-  {
-    get => MillenniumEgg.TranscendenceUpgrades.Values.ToList<CardModel>();
-  }
+  public static List<CardModel> TranscendenceCards => TranscendenceUpgrades.Values.ToList();
 
   public override RelicRarity Rarity => RelicRarity.Ancient;
 
   [SavedProperty]
-  public SerializableCard? StarterCard
-  {
-    get => this._serializableStarterCard;
-    set
-    {
-      this.AssertMutable();
-      this._serializableStarterCard = value;
-    }
-  }
+  private SerializableCard? StarterCard { get => _serializableStarterCard; set { AssertMutable(); _serializableStarterCard = value; } }
 
   [SavedProperty]
-  public SerializableCard? AncientCard
-  {
-    get => this._serializableAncientCard;
-    set
-    {
-      this.AssertMutable();
-      this._serializableAncientCard = value;
-    }
-  }
+  private SerializableCard? AncientCard { get => _serializableAncientCard; set { AssertMutable(); _serializableAncientCard = value; } }
 
   protected override IEnumerable<DynamicVar> CanonicalVars => [
-    (DynamicVar) new StringVar("StarterCard"),
-    (DynamicVar) new StringVar("AncientCard")
+    new StringVar("StarterCard"),
+    new StringVar("AncientCard")
   ];
 
   protected override void AfterCloned()
   {
     base.AfterCloned();
-    this._extraHoverTips = new List<IHoverTip>();
+    ExtraHoverTips1 = [];
   }
 
   public bool SetupForPlayer(Player player)
   {
-    this.AssertMutable();
-    CardModel transcendenceStarterCard = this.GetTranscendenceStarterCard(player);
-    if (transcendenceStarterCard == null)
+    AssertMutable();
+    var transcendenceStarterCard = GetTranscendenceStarterCard(player);
+    if (transcendenceStarterCard is null)
       return false;
-    this.StarterCard = transcendenceStarterCard.ToSerializable();
-    this.AncientCard = this.GetTranscendenceTransformedCard(transcendenceStarterCard).ToSerializable();
+    StarterCard = transcendenceStarterCard.ToSerializable();
+    AncientCard = GetTranscendenceTransformedCard(transcendenceStarterCard).ToSerializable();
     return true;
   }
 
   public void SetupForTests(SerializableCard starterCard, SerializableCard ancientCard)
   {
-    this.AssertMutable();
-    this.StarterCard = starterCard;
-    this.AncientCard = ancientCard;
+    AssertMutable();
+    StarterCard = starterCard;
+    AncientCard = ancientCard;
   }
 
-  public CardModel? GetTranscendenceStarterCard(Player player)
+  private static CardModel? GetTranscendenceStarterCard(Player player)
   {
-    return player.Deck.Cards.FirstOrDefault<CardModel>((Func<CardModel, bool>) (c => MillenniumEgg.TranscendenceUpgrades.ContainsKey(c.Id)));
+    return player.Deck.Cards.FirstOrDefault(c => TranscendenceUpgrades.ContainsKey(c.Id));
   }
 
-  public CardModel GetTranscendenceTransformedCard(CardModel starterCard)
+  private CardModel GetTranscendenceTransformedCard(CardModel starterCard)
   {
-    CardModel canonicalCard;
-    if (!MillenniumEgg.TranscendenceUpgrades.TryGetValue(starterCard.Id, out canonicalCard))
-      return (CardModel) this.Owner.RunState.CreateCard<Doubt>(starterCard.Owner);
-    CardModel card = starterCard.Owner.RunState.CreateCard(canonicalCard, starterCard.Owner);
+    if (!TranscendenceUpgrades.TryGetValue(starterCard.Id, out var canonicalCard))
+      return Owner.RunState.CreateCard<Doubt>(starterCard.Owner);
+    var card = starterCard.Owner.RunState.CreateCard(canonicalCard, starterCard.Owner);
     if (starterCard.IsUpgraded)
       CardCmd.Upgrade(card);
-    if (starterCard.Enchantment != null)
-    {
-      EnchantmentModel enchantment = (EnchantmentModel) starterCard.Enchantment.MutableClone();
-      CardCmd.Enchant(enchantment, card, (Decimal) enchantment.Amount);
-    }
+    if (starterCard.Enchantment is null)
+      return card;
+    var enchantment = (EnchantmentModel) starterCard.Enchantment.MutableClone();
+    CardCmd.Enchant(enchantment, card, enchantment.Amount);
     return card;
   }
 
@@ -136,32 +108,31 @@ public class MillenniumEgg : Spire1RevampedRelic
   {
     get
     {
-      var _extraHoverTips2 = new List<IHoverTip>();
+      var extraHoverTips2 = new List<IHoverTip>();
 
-      if (StarterCard != null)
+      if (StarterCard is not null)
       {
-        CardModel cardModel = CardModel.FromSerializable(StarterCard);
-        _extraHoverTips2.AddRange(cardModel.HoverTips);
-        _extraHoverTips2.Add(HoverTipFactory.FromCard(cardModel));
+        var cardModel = CardModel.FromSerializable(StarterCard);
+        extraHoverTips2.AddRange(cardModel.HoverTips);
+        extraHoverTips2.Add(HoverTipFactory.FromCard(cardModel));
         ((StringVar) DynamicVars["StarterCard"]).StringValue = cardModel.Title;
       }
 
-      if (AncientCard != null)
-      {
-        CardModel cardModel2 = CardModel.FromSerializable(AncientCard);
-        _extraHoverTips2.AddRange(cardModel2.HoverTips);
-        _extraHoverTips2.Add(HoverTipFactory.FromCard(cardModel2));
-        ((StringVar) DynamicVars["AncientCard"]).StringValue = cardModel2.Title;
-      }
+      if (AncientCard is null)
+        return extraHoverTips2;
+      var cardModel2 = CardModel.FromSerializable(AncientCard);
+      extraHoverTips2.AddRange(cardModel2.HoverTips);
+      extraHoverTips2.Add(HoverTipFactory.FromCard(cardModel2));
+      ((StringVar) DynamicVars["AncientCard"]).StringValue = cardModel2.Title;
 
-      return _extraHoverTips2;
+      return extraHoverTips2;
     }
   }
 
   public override async Task AfterObtained()
   {
-    MillenniumEgg millenniumEgg = this;
-    CardModel transcendenceStarterCard = millenniumEgg.GetTranscendenceStarterCard(millenniumEgg.Owner);
-    CardPileAddResult? nullable = await CardCmd.Transform(transcendenceStarterCard, millenniumEgg.GetTranscendenceTransformedCard(transcendenceStarterCard));
+    var millenniumEgg = this;
+    var transcendenceStarterCard = GetTranscendenceStarterCard(millenniumEgg.Owner);
+    await CardCmd.Transform(transcendenceStarterCard!, millenniumEgg.GetTranscendenceTransformedCard(transcendenceStarterCard!));
   }
 }

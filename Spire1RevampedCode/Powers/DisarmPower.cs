@@ -17,17 +17,9 @@ public sealed class DisarmPower : Spire1RevampedPower
 
   protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
 
-  public override async Task AfterDamageReceived(
-    PlayerChoiceContext choiceContext,
-    Creature target,
-    DamageResult result,
-    ValueProp props,
-    Creature? dealer,
-    CardModel? cardSource)
+  public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
   {
-    DisarmPower disarmPower = this;
-    if (target != disarmPower.Owner || result.UnblockedDamage <= 0 || disarmPower.Owner.CombatState.CurrentSide != disarmPower.Owner.Side)
-      return;
-    IReadOnlyList<DisarmedPower> disarmedPowerList = await PowerCmd.Apply<DisarmedPower>(choiceContext, (IEnumerable<Creature>) CombatState.HittableEnemies, disarmPower.Amount, disarmPower.Owner, (CardModel) null);
+    if (target != Owner || result.UnblockedDamage <= 0 || Owner.CombatState!.CurrentSide != Owner.Side) return;
+    await PowerCmd.Apply<DisarmedPower>(choiceContext, CombatState.HittableEnemies, Amount, Owner, null);
   }
 }

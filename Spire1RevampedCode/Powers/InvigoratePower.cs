@@ -4,7 +4,6 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Spire1Revamped.Spire1RevampedCode.Powers;
@@ -17,15 +16,10 @@ public sealed class InvigoratePower : Spire1RevampedPower
 
   public override async Task BeforeSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
   {
-    InvigoratePower invigoratePower = this;
-    if (side != invigoratePower.Owner.Side)
-      return;
-    IReadOnlyList<CardModel> cards = PileType.Hand.GetPile(invigoratePower.Owner.Player).Cards;
-    if (cards.Count == 0)
-      return;
-    decimal amount = cards.Count * this.Amount;
-    invigoratePower.Flash();
-    VigorPower vigorPower = await PowerCmd.Apply<VigorPower>(choiceContext, invigoratePower.Owner, amount, invigoratePower.Owner, (CardModel) null);
+    if (side != Owner.Side) return;
+    var cards = PileType.Hand.GetPile(Owner.Player!).Cards;
+    if (cards.Count is 0) return;
+    Flash();
+    await PowerCmd.Apply<VigorPower>(choiceContext, Owner, cards.Count * Amount, Owner, null);
   }
-  
 }

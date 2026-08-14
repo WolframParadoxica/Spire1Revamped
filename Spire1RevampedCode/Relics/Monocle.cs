@@ -12,15 +12,14 @@ public class Monocle : Spire1RevampedRelic
 {
     public override RelicRarity Rarity => RelicRarity.Ancient;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [(DynamicVar) new EnergyVar(1)];
-    
-    public readonly SpireField<CardModel, bool> HasCostSwapped = new(() => false);
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
+
+    private readonly SpireField<CardModel, bool> _hasCostSwapped = new(() => false);
 
     public override Task BeforeCombatStartLate()
     {
-        Monocle monocle = this;
-        foreach (CardModel allCard in monocle.Owner.PlayerCombatState.AllCards)
-            if (allCard.Owner == monocle.Owner)
+        foreach (var allCard in Owner.PlayerCombatState!.AllCards)
+            if (allCard.Owner == Owner)
                 switch (allCard.CanonicalStarCost)
                 {
                     case > 0:
@@ -36,74 +35,69 @@ public class Monocle : Spire1RevampedRelic
 
     public override Task AfterCardEnteredCombat(CardModel card)
     {
-        Monocle monocle = this;
-        if (card.Owner == monocle.Owner)
-            switch (card.CanonicalStarCost)
-            {
-                case > 0:
-                    break;
-                default:
-                    //skip unplayable curses & statuses, quest cards, X energy cost cards, and stardust
-                    if (card is { EnergyCost: { Canonical: > -1, CostsX: false }, HasStarCostX: false } && !card.Keywords.Contains(CardKeyword.Unplayable))
-                        card.UpgradeStarCostBy(1);
-                    break;
-            }
+        if (card.Owner != Owner)
+            return Task.CompletedTask;
+        switch (card.CanonicalStarCost)
+        {
+            case > 0:
+                break;
+            default:
+                //skip unplayable curses & statuses, quest cards, X energy cost cards, and stardust
+                if (card is { EnergyCost: { Canonical: > -1, CostsX: false }, HasStarCostX: false } && !card.Keywords.Contains(CardKeyword.Unplayable))
+                    card.UpgradeStarCostBy(1);
+                break;
+        }
         return Task.CompletedTask;
     }
     
-    private static bool __isBlockingCostSwap;
+    private static bool _isBlockingCostSwap;
     public override bool TryModifyEnergyCostInCombatLate(
         CardModel card,
-        Decimal originalCost,
-        out Decimal modifiedCost)
+        decimal originalCost,
+        out decimal modifiedCost)
     {
-        Monocle monocle = this;
         modifiedCost = originalCost;
-        if (__isBlockingCostSwap)
+        if (_isBlockingCostSwap)
             return false;
-        bool isBlockingCostSwapPreviousValue = __isBlockingCostSwap;
-        __isBlockingCostSwap = true;
+        bool isBlockingCostSwapPreviousValue = _isBlockingCostSwap;
+        _isBlockingCostSwap = true;
         if (card.Owner != this.Owner)
         {
-            __isBlockingCostSwap = false;
+            _isBlockingCostSwap = false;
             return false;
         }
         if (originalCost <= 0M || card.EnergyCost.GetWithModifiers(CostModifiers.All)<=0)
         {
-            if (this.HasCostSwapped.Get(card))
+            if (this._hasCostSwapped.Get(card))
             {
-                //card.UpgradeStarCostBy(-1);
-                HasCostSwapped[card] = false;
+                _hasCostSwapped[card] = false;
             }
-            __isBlockingCostSwap = false;
+            _isBlockingCostSwap = false;
             return false;
         }
         modifiedCost = originalCost - 1M;
         if (modifiedCost < 0M)
         {
             modifiedCost = 0M;
-            if (this.HasCostSwapped.Get(card))
+            if (this._hasCostSwapped.Get(card))
             {
-                //card.UpgradeStarCostBy(-1);
-                HasCostSwapped[card] = false;
+                _hasCostSwapped[card] = false;
             }
         }
-        else if (!this.HasCostSwapped.Get(card))
+        else if (!this._hasCostSwapped.Get(card))
         {
-            //card.UpgradeStarCostBy(1);
-            HasCostSwapped[card] = true;
+            _hasCostSwapped[card] = true;
         }
-        __isBlockingCostSwap = isBlockingCostSwapPreviousValue;
+        _isBlockingCostSwap = isBlockingCostSwapPreviousValue;
         return true;
     }
     public override bool TryModifyStarCost(
         CardModel card,
-        Decimal originalCost,
-        out Decimal modifiedCost)
+        decimal originalCost,
+        out decimal modifiedCost)
     {
-        Monocle monocle = this;
         modifiedCost = originalCost;
-        if (card.Owner != this.Owner || originalCost < 0M || card.HasStarCostX || !this.HasCostSwapped.Get(card))
+        if (card.Owner != Owner || originalCost < 0M || card.HasStarCostX || !_hasCostSwapped.Get(card))
             return false;
         modifiedCost = originalCost + 1M;
         return true;
