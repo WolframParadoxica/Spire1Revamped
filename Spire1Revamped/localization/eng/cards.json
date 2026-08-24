@@ -25,7 +25,7 @@
   "SPIRE1REVAMPED-EN_GARDE.title": "En Garde",
   "SPIRE1REVAMPED-FISSION.description": "[gold]Evoke[/gold] all of your Orbs. [gold]Channel[/gold] {Cards:diff()} random {Cards:plural:Orb|Orbs} and draw {Cards:diff()} {Cards:plural:card|cards} for each unique Orb Evoked.",
   "SPIRE1REVAMPED-FISSION.title": "Fission",
-  "SPIRE1REVAMPED-FLYING_KNEE.description": "Deal {Damage:diff()} damage.\nNext turn,\ngain {Energy:energyIcons()}.",
+  "SPIRE1REVAMPED-FLYING_KNEE.description": "Deal {Damage:diff()} damage.\nNext turn, gain {Energy:energyIcons()}.",
   "SPIRE1REVAMPED-FLYING_KNEE.title": "Flying Knee",
   "SPIRE1REVAMPED-FROM_THE_AETHER.description": "Whenever you create a card, draw {Cards:diff()} {Cards:plural:card|cards}.",
   "SPIRE1REVAMPED-FROM_THE_AETHER.title": "From the Aether",
