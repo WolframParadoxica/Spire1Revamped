@@ -21,7 +21,7 @@ public sealed class ExhaustCardPower : Spire1RevampedPower
         GetInternalData<Data>().AmountsForPlayedCards[cardPlay.Card] = Amount;
         return Task.CompletedTask;
     }
-  
+
     public override CardLocation ModifyCardPlayResultLocation(CardModel card, bool isAutoPlay, ResourceInfo resources, CardLocation location)
     {
         if (card.Owner.Creature != Owner || isAutoPlay || card.Keywords.Contains(BaseLibKeywords.Purge) || card.Type is CardType.Power || location.pileType is PileType.None) return location;
@@ -41,7 +41,8 @@ public sealed class ExhaustCardPower : Spire1RevampedPower
         await PowerCmd.Decrement(this);
     }
 
-    private class Data
+    // ReSharper disable once MemberCanBePrivate.Global
+    public class Data
     {
         public readonly Dictionary<CardModel, int> AmountsForPlayedCards = new();
     }
