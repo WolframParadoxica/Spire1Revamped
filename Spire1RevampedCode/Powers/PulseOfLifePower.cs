@@ -8,29 +8,30 @@ namespace Spire1Revamped.Spire1RevampedCode.Powers;
 
 public sealed class PulseOfLifePower : Spire1RevampedPower
 {
-  public override PowerType Type => PowerType.Buff;
+    public override PowerType Type => PowerType.Buff;
 
-  public override PowerStackType StackType => PowerStackType.Counter;
+    public override PowerStackType StackType => PowerStackType.Counter;
 
-  protected override object InitInternalData() => new Data();
+    protected override object InitInternalData() => new Data();
 
-  public override Task BeforeCardPlayed(CardPlay cardPlay)
-  {
-    if (cardPlay.Card.Owner.Creature != Owner) return Task.CompletedTask;
-    GetInternalData<Data>().AmountsForPlayedCards[cardPlay.Card] = Amount;
-    return Task.CompletedTask;
-  }
+    public override Task BeforeCardPlayed(CardPlay cardPlay)
+    {
+      if (cardPlay.Card.Owner.Creature != Owner) return Task.CompletedTask;
+      GetInternalData<Data>().AmountsForPlayedCards[cardPlay.Card] = Amount;
+      return Task.CompletedTask;
+    }
 
-  public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
-  {
-    if (cardPlay.Card.Owner.Creature != Owner || !GetInternalData<Data>().AmountsForPlayedCards.Remove(cardPlay.Card, out var amount) || amount <= 0) return;
-    if (!cardPlay.Card.Owner.IsOstyAlive) return;
-    Flash();
-    await CreatureCmd.Heal(cardPlay.Card.Owner.Osty!, amount);
-  }
+    public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+      if (cardPlay.Card.Owner.Creature != Owner || !GetInternalData<Data>().AmountsForPlayedCards.Remove(cardPlay.Card, out var amount) || amount <= 0) return;
+      if (!cardPlay.Card.Owner.IsOstyAlive) return;
+      Flash();
+      await CreatureCmd.Heal(cardPlay.Card.Owner.Osty!, amount);
+    }
 
-  private class Data
-  {
-    public readonly Dictionary<CardModel, int> AmountsForPlayedCards = new();
-  }
+    // ReSharper disable once MemberCanBePrivate.Global
+    public class Data
+    {
+      public readonly Dictionary<CardModel, int> AmountsForPlayedCards = new();
+    }
 }

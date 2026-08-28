@@ -31,7 +31,7 @@ public class Concentrate() : Spire1RevampedCard(1, CardType.Skill, CardRarity.Un
 
         foreach (var original in selectedCards)
         {
-            var calculatedEnergy = original.EnergyCost.CostsX ? original.Owner.PlayerCombatState?.Energy ?? 0 : original.EnergyCost.GetResolved() is -1 ? 0 : original.EnergyCost.GetWithModifiers(CostModifiers.All);
+            var calculatedEnergy = card.EnergyCost.CostsX ? card.Owner.PlayerCombatState?.Energy ?? 0 : Math.Max(0, card.EnergyCost.GetWithModifiers(CostModifiers.All));
             DiscardEnergyMap[original] = calculatedEnergy;
         }
 
