@@ -25,7 +25,7 @@ public class GrimReaper() : Spire1RevampedCard(1, CardType.Attack, CardRarity.Co
         if (!Osty.CheckMissingWithAnim(Owner))
         {
             var attackCommand = await DamageCmd.Attack(DynamicVars.OstyDamage.BaseValue).FromOsty(Owner.Osty!, this,cardPlay).Targeting(cardPlay.Target!).WithHitFx("vfx/vfx_attack_blunt", tmpSfx: "blunt_attack.mp3").Execute(choiceContext);
-            await CreatureCmd.Heal(Owner.Osty!, attackCommand.Results.SelectMany(r => r).Sum((Func<DamageResult, int>) (r => r.TotalDamage + r.OverkillDamage)));
+            await CreatureCmd.Heal(Owner.Osty!, attackCommand.Results.SelectMany(r => r).Sum(r => r.TotalDamage + r.OverkillDamage));
         }
     }
 

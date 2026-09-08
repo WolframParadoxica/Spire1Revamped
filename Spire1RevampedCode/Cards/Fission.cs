@@ -19,7 +19,7 @@ public class Fission() : Spire1RevampedCard(0, CardType.Skill, CardRarity.Rare, 
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new CardsVar(1), new CalculationBaseVar(0M), new CalculationExtraVar(1M),
-        new CalculatedVar("CalculatedOrbs").WithMultiplier(((Func<CardModel, Creature, decimal>) ((card, _) => card.Owner.PlayerCombatState!.OrbQueue.Orbs.GroupBy((Func<OrbModel, ModelId>) (orb => orb.Id)).Count()))!)
+        new CalculatedVar("CalculatedOrbs").WithMultiplier((card, _) => card.Owner.PlayerCombatState!.OrbQueue.Orbs.GroupBy(orb => orb.Id).Count())
     ];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];

@@ -21,7 +21,7 @@ public class Accretion() : Spire1RevampedCard(0, CardType.Attack, CardRarity.Com
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<VigorPower>(choiceContext, Owner.Creature, (await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, cardPlay).Targeting(cardPlay.Target!).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext)).Results.SelectMany(r => r).Sum((Func<DamageResult, int>) (r => r.TotalDamage)), Owner.Creature, this);
+        await PowerCmd.Apply<VigorPower>(choiceContext, Owner.Creature, (await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, cardPlay).Targeting(cardPlay.Target!).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext)).Results.SelectMany(r => r).Sum(r => r.TotalDamage), Owner.Creature, this);
     }
 
     protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(2M);
