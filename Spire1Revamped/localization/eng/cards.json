@@ -37,7 +37,7 @@
   "SPIRE1REVAMPED-HEMORRHAGE.title": "Hemorrhage",
   "SPIRE1REVAMPED-INVIGORATE.description": "At the end of your turn, gain {InvigoratePower:diff()} [gold]Vigor[/gold] for each card in your [gold]Hand[/gold].",
   "SPIRE1REVAMPED-INVIGORATE.title": "Invigorate",
-  "SPIRE1REVAMPED-KEEPER.description": "[gold]Summon[/gold] {Summon:diff()}.\nThis turn, [gold]Osty[/gold] Attacks are played an extra time.",
+  "SPIRE1REVAMPED-KEEPER.description": "[gold]Summon[/gold] {Summon:diff()}.\nThis turn, [gold]Osty's[/gold] Attacks are played an extra time.",
   "SPIRE1REVAMPED-KEEPER.title": "Keeper",
   "SPIRE1REVAMPED-MASSACRE.description": "Deal {Damage:diff()} damage.\nThe next 0 {energyPrefix:energyIcons(1)} Attack played on the enemy deals {MassacrePower:diff()}% additional damage.",
   "SPIRE1REVAMPED-MASSACRE.title": "Massacre",

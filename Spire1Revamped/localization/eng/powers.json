@@ -50,7 +50,7 @@
   "SPIRE1REVAMPED-RESORPTION_POWER.description": "Whenever ANYONE dies, your next [gold]Summon[/gold] and [gold]Block[/gold] gained from cards is doubled.",
   "SPIRE1REVAMPED-RESORPTION_POWER.smartDescription": "Whenever ANYONE dies, your next [blue]{Amount}[/blue] [gold]{Amount:plural:Summon|Summons}[/gold] and [gold]Block[/gold] gained from cards {Amount:plural:is|are} doubled.",
   "SPIRE1REVAMPED-RESORPTION_POWER.title": "Resorption",
-  "SPIRE1REVAMPED-RESTLESS_HAND_POWER.description": "This turn, [gold]Osty[/gold] Attacks are played an extra time.",
-  "SPIRE1REVAMPED-RESTLESS_HAND_POWER.smartDescription": "{Amount:plural:This turn|For [blue]{}[/blue] turns}, [gold]Osty[/gold] Attacks are played an extra time.",
+  "SPIRE1REVAMPED-RESTLESS_HAND_POWER.description": "This turn, [gold]Osty's[/gold] Attacks are played an extra time.",
+  "SPIRE1REVAMPED-RESTLESS_HAND_POWER.smartDescription": "{Amount:plural:This turn|For [blue]{}[/blue] turns}, [gold]Osty's[/gold] Attacks are played an extra time.",
   "SPIRE1REVAMPED-RESTLESS_HAND_POWER.title": "Restless Hand"
 }
