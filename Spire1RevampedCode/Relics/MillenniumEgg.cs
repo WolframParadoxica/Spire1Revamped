@@ -56,10 +56,7 @@ public class MillenniumEgg : Spire1RevampedRelic
   [SavedProperty]
   private SerializableCard? AncientCard { get => _serializableAncientCard; set { AssertMutable(); _serializableAncientCard = value; } }
 
-  protected override IEnumerable<DynamicVar> CanonicalVars => [
-    new StringVar("StarterCard"),
-    new StringVar("AncientCard")
-  ];
+  protected override IEnumerable<DynamicVar> CanonicalVars => [new StringVar("StarterCard"), new StringVar("AncientCard")];
 
   protected override void AfterCloned()
   {
@@ -71,8 +68,7 @@ public class MillenniumEgg : Spire1RevampedRelic
   {
     AssertMutable();
     var transcendenceStarterCard = GetTranscendenceStarterCard(player);
-    if (transcendenceStarterCard is null)
-      return false;
+    if (transcendenceStarterCard is null) return false;
     StarterCard = transcendenceStarterCard.ToSerializable();
     AncientCard = GetTranscendenceTransformedCard(transcendenceStarterCard).ToSerializable();
     return true;
@@ -92,13 +88,10 @@ public class MillenniumEgg : Spire1RevampedRelic
 
   private CardModel GetTranscendenceTransformedCard(CardModel starterCard)
   {
-    if (!TranscendenceUpgrades.TryGetValue(starterCard.Id, out var canonicalCard))
-      return Owner.RunState.CreateCard<Doubt>(starterCard.Owner);
+    if (!TranscendenceUpgrades.TryGetValue(starterCard.Id, out var canonicalCard)) return Owner.RunState.CreateCard<Doubt>(starterCard.Owner);
     var card = starterCard.Owner.RunState.CreateCard(canonicalCard, starterCard.Owner);
-    if (starterCard.IsUpgraded)
-      CardCmd.Upgrade(card);
-    if (starterCard.Enchantment is null)
-      return card;
+    if (starterCard.IsUpgraded) CardCmd.Upgrade(card);
+    if (starterCard.Enchantment is null) return card;
     var enchantment = (EnchantmentModel) starterCard.Enchantment.MutableClone();
     CardCmd.Enchant(enchantment, card, enchantment.Amount);
     return card;
@@ -118,8 +111,7 @@ public class MillenniumEgg : Spire1RevampedRelic
         ((StringVar) DynamicVars["StarterCard"]).StringValue = cardModel.Title;
       }
 
-      if (AncientCard is null)
-        return extraHoverTips2;
+      if (AncientCard is null) return extraHoverTips2;
       var cardModel2 = CardModel.FromSerializable(AncientCard);
       extraHoverTips2.AddRange(cardModel2.HoverTips);
       extraHoverTips2.Add(HoverTipFactory.FromCard(cardModel2));

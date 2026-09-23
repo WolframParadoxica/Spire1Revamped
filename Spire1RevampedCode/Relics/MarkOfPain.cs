@@ -17,18 +17,14 @@ public class MarkOfPain : Spire1RevampedRelic
 
     public override bool HasUponPickupEffect => true;
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.ForEnergy(this),
-        ..HoverTipFactory.FromCardWithCardHoverTips<Pain>()
-    ];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.ForEnergy(this), ..HoverTipFactory.FromCardWithCardHoverTips<Pain>()];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
 
     public override async Task AfterObtained()
     {
         List<CardPileAddResult> results = [];
-        for (var i = 0; i < 2; ++i)
-            results.Add(await CardPileCmd.Add(Owner.RunState.CreateCard<Pain>(Owner), PileType.Deck));
+        for (var i = 0; i < 2; ++i) results.Add(await CardPileCmd.Add(Owner.RunState.CreateCard<Pain>(Owner), PileType.Deck));
         CardCmd.PreviewCardPileAdd(results, 2f);
     }
 

@@ -24,5 +24,5 @@ public class EnGarde() : Spire1RevampedCard(1, CardType.Power, CardRarity.Rare, 
         await ForgeCmd.Forge(DynamicVars.Forge.IntValue, Owner, this);
     }
 
-    protected override void OnUpgrade() => this.DynamicVars.Forge.UpgradeValueBy(4M);
+    protected override void OnUpgrade() => DynamicVars.Forge.UpgradeValueBy(4M);
 }

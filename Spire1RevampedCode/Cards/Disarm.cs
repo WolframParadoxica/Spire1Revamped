@@ -24,5 +24,5 @@ public class Disarm() : Spire1RevampedCard(1, CardType.Power, CardRarity.Uncommo
         await PowerCmd.Apply<DisarmPower>(choiceContext, Owner.Creature, DynamicVars.Power<DisarmPower>().BaseValue, Owner.Creature, this);
     }
 
-    protected override void OnUpgrade() => this.AddKeyword(CardKeyword.Innate);
+    protected override void OnUpgrade() => AddKeyword(CardKeyword.Innate);
 }

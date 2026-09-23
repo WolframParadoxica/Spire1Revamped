@@ -25,5 +25,5 @@ public class Discharge() : Spire1RevampedCard(1, CardType.Skill, CardRarity.Anci
     await PowerCmd.Apply<DischargePower>(choiceContext, Owner.Creature, DynamicVars[nameof (Discharge)].BaseValue, Owner.Creature, this);
   }
 
-  protected override void OnUpgrade() => this.EnergyCost.UpgradeBy(-1);
+  protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
 }

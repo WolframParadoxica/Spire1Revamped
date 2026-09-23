@@ -18,9 +18,7 @@ public class HoveringKite : Spire1RevampedRelic
 
     public override RelicRarity Rarity => RelicRarity.Ancient;
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.ForEnergy(this)
-    ];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.ForEnergy(this)];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
 
@@ -36,21 +34,16 @@ public class HoveringKite : Spire1RevampedRelic
 
     public override async Task AfterCardDiscarded(PlayerChoiceContext choiceContext, CardModel card)
     {
-        if (card.Owner != Owner || WasUsedThisTurn)
-            return;
+        if (card.Owner != Owner || WasUsedThisTurn) return;
         Flash();
         await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, Owner);
         Status = RelicStatus.Normal;
         WasUsedThisTurn = true;
     }
 
-    public override Task BeforeSideTurnEnd(
-        PlayerChoiceContext choiceContext,
-        CombatSide side,
-        IEnumerable<Creature> participants)
+    public override Task BeforeSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
-        if (!participants.Contains(Owner.Creature))
-            return Task.CompletedTask;
+        if (!participants.Contains(Owner.Creature)) return Task.CompletedTask;
         WasUsedThisTurn = false;
         Status = RelicStatus.Active;
         return Task.CompletedTask;

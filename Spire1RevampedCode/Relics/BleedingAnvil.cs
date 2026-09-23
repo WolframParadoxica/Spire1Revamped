@@ -14,17 +14,13 @@ public class BleedingAnvil : Spire1RevampedRelic
 {
     public override RelicRarity Rarity => RelicRarity.Ancient;
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.ForEnergy(this),
-        HoverTipFactory.Static(StaticHoverTip.SummonStatic)
-    ];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.ForEnergy(this), HoverTipFactory.Static(StaticHoverTip.SummonStatic)];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
 
     public override async Task AfterEnergySpent(CardModel card, int amount)
     {
-        if (card.Owner.Creature.Player != Owner || amount <= 0)
-            return;
+        if (card.Owner.Creature.Player != Owner || amount <= 0) return;
         await OstyCmd.Summon(new ThrowingPlayerChoiceContext(), card.Owner, amount, this);
     }
 }

@@ -15,8 +15,7 @@ public class FrozenBattery : Spire1RevampedRelic
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         var orbs = Owner.PlayerCombatState!.OrbQueue.Orbs;
-        if (cardPlay.Card.Owner != Owner || cardPlay.Card.Type is not CardType.Power || orbs.Count <= 0)
-            return;
+        if (cardPlay.Card.Owner != Owner || cardPlay.Card.Type is not CardType.Power || orbs.Count <= 0) return;
         Flash();
         await OrbCmd.Passive(choiceContext, orbs[0], null);
     }

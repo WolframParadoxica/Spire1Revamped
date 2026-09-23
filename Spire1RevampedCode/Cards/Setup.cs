@@ -25,5 +25,5 @@ public class Setup() : Spire1RevampedCard(1, CardType.Skill, CardRarity.Uncommon
         await CardPileCmd.Add(card, PileType.Draw, CardPilePosition.Top);
     }
 
-    protected override void OnUpgrade() => this.EnergyCost.UpgradeBy(-1);
+    protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
 }
